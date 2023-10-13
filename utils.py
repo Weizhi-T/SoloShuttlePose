@@ -3,6 +3,7 @@ import os
 import shutil
 import json
 import cv2
+from CourtDetect import CourtDetect
 
 
 def is_file_empty(file_path):
@@ -62,17 +63,61 @@ def is_video_detect(defile_name, save_path="res"):
                 return True
 
 
-def skip_video(video_name, video, skip_frames, current_frame, total_frames):
+def find_next(video_path, court_detect, begin_frame):
+    # Open the video file
+    video = cv2.VideoCapture(video_path)
+    # Get video properties
+    fps = video.get(cv2.CAP_PROP_FPS)
 
-    next_frames = current_frame + skip_frames
-    next_frames = min(next_frames, total_frames)
-    for i in range(current_frame, next_frames):
-        players_dict = {str(i): {"top": None, "bottom": None}}
-        have_court_dict = {str(i): False}
-        write_json(have_court_dict, video_name, "res\courts")
-        write_json(players_dict, video_name, "res\joints")
-        video.set(cv2.CAP_PROP_POS_FRAMES, next_frames)
-    return next_frames - current_frame
+    # Number of consecutively detected pitch frames
+    last_count = 0
+    total_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+    court_info_list = []
+    # the number of skip frams per time
+    skip_frames = int(fps)
+
+    def pre_process():
+        nonlocal video, fps, total_frames, skip_frames, court_detect, begin_frame, last_count, court_info_list
+        video.set(cv2.CAP_PROP_POS_FRAMES, begin_frame)
+        while True:
+            # Read a frame from the video
+            current_frame = int(video.get(cv2.CAP_PROP_POS_FRAMES))
+            ret, frame = video.read()
+
+            # If there are no more frames, break the loop
+            if not ret or last_count >= skip_frames:
+                return current_frame - skip_frames
+
+            court_info, have_court = court_detect.get_court_info(frame)
+            if have_court:
+                last_count += 1
+                court_info_list.append(court_info)
+            else:
+                if current_frame + skip_frames >= total_frames:
+                    return total_frames
+                video.set(cv2.CAP_PROP_POS_FRAMES, current_frame + skip_frames)
+                last_count = 0
+                court_info_list = []
+
+    def find_frame(end_frame):
+        nonlocal video, court_detect, begin_frame
+        while begin_frame + 1 < end_frame:
+
+            middle_frame = (begin_frame + end_frame) // 2
+            video.set(cv2.CAP_PROP_POS_FRAMES, middle_frame)
+
+            ret, frame = video.read()
+            court_info, have_court = court_detect.get_court_info(frame)
+            if have_court:
+                end_frame = middle_frame
+            else:
+                begin_frame = middle_frame
+        return begin_frame
+
+    end_frame = pre_process()
+    next_frame = find_frame(end_frame)
+    video.release()
+    return next_frame
 
 
 def clear_file(defile_name, save_path="res"):

@@ -18,16 +18,18 @@ please look forward to...
 
 # Update journal
 
-2023/10/13 1:06: 
+2023/10/13: 
     
-    add "README.md" in the court-info-analysis.
+    Add "README.md" in the court-info-analysis.
     
-    fix the skipping frames bugs.
+    Fix the skipping frames bugs.
 
-    add the function  of skip some frames at the beginning of the video.
+    Accelerate process by skipping some valid frames in the video.
+    
+    Finding valid whole frames using bisection so the tool can process video faster.    
 
-    fix the frame count bug. (ori-version start from frame 1)
+    Fix the frame count bug. (ori-version start from frame 1)
 
-    fix the clipvideo fps is different from the ori-video bug. 
+    Fix the clipvideo fps is different from the ori-video bug. 
 
     

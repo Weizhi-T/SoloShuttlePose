@@ -53,7 +53,7 @@ class VideoClip(object):
                 self.end = 0
                 return False
             # when the valid frame in frame_list more than 3 seconds run in ori-fps
-            elif len(self.frame_list) > int(self.fps * 2.5):
+            elif len(self.frame_list) > int(self.fps * 3):
                 # to check if it's break by accident
                 if self.no_court_cnt >= self.skip_frames:
                     self.end = frame_count

@@ -6,13 +6,15 @@ class VideoClip(object):
     def __init__(self,
                  video_name,
                  fps,
+                 skip_frac,
                  total_frames,
                  frame_height,
                  frame_wight,
                  save_path="./") -> None:
         self.video_name = video_name
         self.save_path = save_path
-        self.fps = int(fps)
+        self.fps = fps
+        self.skip_frames = int(fps) // skip_frac
         self.total_frames = total_frames
         self.frame_height = frame_height
         self.frame_wight = frame_wight
@@ -25,41 +27,44 @@ class VideoClip(object):
         self.frame_list = []
 
     def add_frame(self, have_court, frame, frame_count):
-        if frame_count == self.total_frames:
-            if len(self.frame_list) < self.fps:
+        if frame_count == self.total_frames - 1:
+            if len(self.frame_list) < int(self.fps * 0.5):
                 self.frame_list.clear()
-                self.begin = 0
+                self.begin = -1
                 self.end = 0
-                return
+                return False
             self.end = frame_count
             self.frame_list.append(frame)
             self.__make_video()
             self.__setup()
             self.no_court_cnt = 0
-            return
+            return True
 
         if have_court:
-            if self.begin == 0:
+            if self.begin == -1:
                 self.begin = frame_count
             self.frame_list.append(frame)
+            return False
         elif not have_court:
-            if len(self.frame_list) < self.fps:
+            # when the valid frame in frame_list less than 0.5 seconds run in ori-fps
+            if len(self.frame_list) < int(self.fps * 0.5):
                 self.frame_list.clear()
-                self.begin = 0
+                self.begin = -1
                 self.end = 0
-            elif len(self.frame_list) >= self.fps and len(
-                    self.frame_list) > self.fps * 3:
-                # for test.mp4, the 988 and 989 results are weird
-                # the 5 frames after have_court=false will also be recorded
-                if self.no_court_cnt >= (self.fps // 2):
+                return False
+            # when the valid frame in frame_list more than 3 seconds run in ori-fps
+            elif len(self.frame_list) > int(self.fps * 2.5):
+                # to check if it's break by accident
+                if self.no_court_cnt >= self.skip_frames:
                     self.end = frame_count
                     self.__make_video()
                     self.__setup()
                     self.no_court_cnt = 0
+                    return True
                 else:
                     self.frame_list.append(frame)
                     self.no_court_cnt += 1
-        return
+                    return False
 
     def __make_video(self):
 

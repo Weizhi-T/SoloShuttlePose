@@ -9,13 +9,17 @@ from VideoClip import VideoClip
 from RCNNPose import RCNNPose
 from CourtDetect import CourtDetect
 import os
-from utils import write_json, clear_file, is_video_detect
+from utils import write_json, clear_file, is_video_detect, skip_video
 
 import os
 
-folder_path = "video"
-video_save_path = "res/video"
+folder_path = "videos"
+video_save_path = "res/videos"
 force_process = True
+
+# skip_frac means skip int(fps)//skip_frac, always set 1 or 2
+# the only control the utils.skip_video and class VideoClip
+skip_frac = 2
 
 for root, dirs, files in os.walk(folder_path):
     for file in files:
@@ -50,32 +54,51 @@ for root, dirs, files in os.walk(folder_path):
 
             total_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
 
+            # compute skip_frames
+            skip_frames = int(fps) // skip_frac
+
             rcnn_pose = RCNNPose()
             court_detect = CourtDetect()
 
-            court_detect.pre_process(video_path)
+            video_cilp = VideoClip(video_name, fps, skip_frac, total_frames,
+                                   height, width, full_video_path)
 
+            begin_frame = court_detect.pre_process(video_path)
             court_dict = {"court": court_detect.normal_court_info}
-            write_json(court_dict, video_name, "res\court")
-
-            video_cilp = VideoClip(video_name, fps, total_frames, height,
-                                   width, full_video_path)
+            write_json(court_dict, video_name, "res\courts")
 
             with tqdm(total=total_frames) as pbar:
+
+                # for i in range(0, begin_frame):
+                #     players_dict = {str(i): {"top": None, "bottom": None}}
+                #     have_court_dict = {str(i): False}
+                #     write_json(have_court_dict, video_name, "res\courts")
+                #     write_json(players_dict, video_name, "res\joints")
+
+                # if begin_frame:
+                #     video.set(cv2.CAP_PROP_POS_FRAMES, begin_frame)
+                #     pbar.update(begin_frame)
+
+                frame_num = skip_video(video_name, video, begin_frame, 0,
+                                       total_frames)
+                pbar.update(frame_num)
+
                 while True:
                     # Read a frame from the video
-                    ret, frame = video.read()
                     current_frame = int(video.get(cv2.CAP_PROP_POS_FRAMES))
+                    ret, frame = video.read()
+
                     # If there are no more frames, break the loop
                     if not ret:
                         break
-
+                    # assume it don't detect anything
                     players_dict = {
                         str(current_frame): {
                             "top": None,
                             "bottom": None
                         }
                     }
+                    have_court_dict = {str(current_frame): False}
 
                     court_frame, human_frame = frame.copy(), frame.copy()
                     court_info, have_court = court_detect.get_court_info(frame)
@@ -97,18 +120,24 @@ for root, dirs, files in os.walk(folder_path):
                                 }
                             }
 
-                    video_cilp.add_frame(have_court, frame, current_frame)
+                    video_made = video_cilp.add_frame(have_court, frame,
+                                                      current_frame)
+
+                    if video_made:
+                        frame_num = skip_video(video_name, video,
+                                               int(fps) // 2, current_frame,
+                                               total_frames)
+                        pbar.update(frame_num)
+                        continue
 
                     alpha = 0.6
                     frame = cv2.addWeighted(human_frame, alpha, court_frame,
                                             1 - alpha, 0)
                     video_writer.write(frame)
 
-                    have_court_dict = {str(current_frame): have_court}
+                    write_json(have_court_dict, video_name, "res\courts")
 
-                    write_json(have_court_dict, video_name, "res\court")
-
-                    write_json(players_dict, video_name, "res\joint")
+                    write_json(players_dict, video_name, "res\joints")
                     pbar.update(1)
 
             # Release the video capture and writer objects

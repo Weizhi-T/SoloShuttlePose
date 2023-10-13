@@ -2,6 +2,7 @@ import json
 import os
 import shutil
 import json
+import cv2
 
 
 def is_file_empty(file_path):
@@ -59,6 +60,19 @@ def is_video_detect(defile_name, save_path="res"):
                     f"{file_path} has been processed! If you still want to process it, please set force_process as True. "
                 )
                 return True
+
+
+def skip_video(video_name, video, skip_frames, current_frame, total_frames):
+
+    next_frames = current_frame + skip_frames
+    next_frames = min(next_frames, total_frames)
+    for i in range(current_frame, next_frames):
+        players_dict = {str(i): {"top": None, "bottom": None}}
+        have_court_dict = {str(i): False}
+        write_json(have_court_dict, video_name, "res\courts")
+        write_json(players_dict, video_name, "res\joints")
+        video.set(cv2.CAP_PROP_POS_FRAMES, next_frames)
+    return next_frames - current_frame
 
 
 def clear_file(defile_name, save_path="res"):

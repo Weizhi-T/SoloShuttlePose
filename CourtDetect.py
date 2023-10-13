@@ -43,14 +43,19 @@ class CourtDetect(object):
 
         while True:
             # Read a frame from the video
-            ret, frame = video.read()
             current_frame = int(video.get(cv2.CAP_PROP_POS_FRAMES))
+            ret, frame = video.read()
+
             print(f"video is pre-processing, current frame is {current_frame}")
 
             # If there are no more frames, break the loop
-            if not ret or last_count >= int(fps):
-                self.normal_court_info = court_info_list[int(fps) // 2]
-                break
+            if not ret or last_count >= skip_frames:
+                self.normal_court_info = court_info_list[skip_frames // 2]
+
+                # 释放第一次打开的视频
+                video.release()
+
+                return min(current_frame // 2, current_frame - skip_frames)
 
             court_info, have_court = self.get_court_info(frame)
             if have_court:
@@ -65,9 +70,6 @@ class CourtDetect(object):
                 video.set(cv2.CAP_PROP_POS_FRAMES, current_frame + skip_frames)
                 last_count = 0
                 court_info_list = []
-
-        # 释放第一次打开的视频
-        video.release()
 
     def __check_court(self):
         vec1 = np.array(self.normal_court_info)

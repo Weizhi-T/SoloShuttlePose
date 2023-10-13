@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from torchvision.transforms import transforms
 from torchvision.transforms import functional as F
 from VideoClip import VideoClip
-from RCNNPose import RCNNPose
+from kpRCNNPose import RCNNPose
 from CourtDetect import CourtDetect
 import os
 from utils import write_json, clear_file, is_video_detect, find_next

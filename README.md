@@ -26,10 +26,10 @@ please look forward to...
 
     Accelerate process by skipping some valid frames in the video.
     
-    Finding valid whole frames using bisection so the tool can process video faster.    
+    Finding valid frame using bisection so that the tool can process video faster.    
 
     Fix the frame count bug. (ori-version start from frame 1)
 
-    Fix the clipvideo fps is different from the ori-video bug. 
+    Fix the clipvideo fps which is different from the ori-video bug. 
 
     

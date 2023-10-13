@@ -55,7 +55,7 @@ class CourtDetect(object):
                 # 释放第一次打开的视频
                 video.release()
 
-                return max(0, current_frame - 3 * skip_frames)
+                return max(0, current_frame - 2 * skip_frames)
 
             court_info, have_court = self.get_court_info(frame)
             if have_court:
@@ -71,7 +71,7 @@ class CourtDetect(object):
                 last_count = 0
                 court_info_list = []
 
-    def check_court(self, court_info):
+    def __check_court(self, court_info):
         vec1 = np.array(self.normal_court_info)
         vec2 = np.array(court_info)
         mse = np.square(vec1 - vec2).mean()
@@ -105,7 +105,7 @@ class CourtDetect(object):
 
         # check if current court information get from the normal camera view
         if self.normal_court_info is not None:
-            self.got_info = self.check_court(self.__true_court_points)
+            self.got_info = self.__check_court(self.__true_court_points)
             return None, self.got_info
         '''
         l -> left, r -> right, y = a * x + b

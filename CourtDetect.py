@@ -12,10 +12,12 @@ class CourtDetect(object):
     '''
     Tasks involving Keypoint RCNNs
     '''
-    def __init__(self):
+    def __init__(self, check_top_bot_court=True):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.normal_court_info = None
         self.got_info = False
+        self.mse = None
+        self.check_top_bot_court = True
         self.__setup_RCNN()
 
     def reset(self):
@@ -46,6 +48,7 @@ class CourtDetect(object):
             current_frame = int(video.get(cv2.CAP_PROP_POS_FRAMES))
             ret, frame = video.read()
 
+            # current frame is not processed
             print(f"video is pre-processing, current frame is {current_frame}")
 
             # If there are no more frames, break the loop
@@ -75,12 +78,14 @@ class CourtDetect(object):
         vec1 = np.array(self.normal_court_info)
         vec2 = np.array(court_info)
         mse = np.square(vec1 - vec2).mean()
+        self.mse = mse
         if mse > 100:
             return False
         return True
 
     def get_court_info(self, img):
         image = img.copy()
+        self.mse = None
         frame_height, frame_weight, _ = image.shape
         img = F.to_tensor(img)
         img = img.unsqueeze(0)
@@ -153,6 +158,10 @@ class CourtDetect(object):
         return self.__true_court_points, self.got_info
 
     def draw_court(self, image):
+        if not self.got_info:
+            print("There is not court in the image! So you can't draw it.")
+            return image
+
         image_copy = image.copy()
         c_edges = [[0, 1], [0, 5], [1, 2], [1, 6], [2, 3], [2, 7], [3, 4],
                    [3, 8], [4, 9], [5, 6], [5, 10], [6, 7], [6, 11], [7, 8],
@@ -288,7 +297,14 @@ class CourtDetect(object):
     def __check_top_bot_court(self, indices, boxes):
         '''
         check if up court and bot court got player
+        
+        if detect the player left the court, the get_court_info will return False  even if it detects the court.  
+
+        To some degree, it will impact on getting player's posture data.
         '''
+        if not self.normal_court_info:
+            return True, [0, 1]
+
         court_mp = self.__court_info[4]
         for i in range(len(indices)):
             combination = 1

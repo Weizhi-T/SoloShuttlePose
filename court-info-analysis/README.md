@@ -7,4 +7,4 @@
 
 4. The "mse_list.json" records The mse values below each frame.
 
-All the above files are the result of detecting "video/test1.mp4" video using this tool.
+All the above files mentioned above are the result of detecting "video/test1.mp4" video using this tool.

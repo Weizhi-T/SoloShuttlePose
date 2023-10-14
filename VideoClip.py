@@ -9,7 +9,7 @@ class VideoClip(object):
                  skip_frac,
                  total_frames,
                  frame_height,
-                 frame_wight,
+                 frame_width,
                  save_path="./") -> None:
         self.video_name = video_name
         self.save_path = save_path
@@ -17,7 +17,7 @@ class VideoClip(object):
         self.skip_frames = int(fps) // skip_frac
         self.total_frames = total_frames
         self.frame_height = frame_height
-        self.frame_wight = frame_wight
+        self.frame_width = frame_width
         self.frame_list = []
         self.begin = 0
         self.end = 0
@@ -74,7 +74,7 @@ class VideoClip(object):
 
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         fps = self.fps
-        output_video_format = (self.frame_wight, self.frame_height)
+        output_video_format = (self.frame_width, self.frame_height)
 
         video_writer = cv2.VideoWriter(full_path, fourcc, fps,
                                        output_video_format)

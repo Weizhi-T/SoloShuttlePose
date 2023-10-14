@@ -32,4 +32,14 @@ please look forward to...
 
     Fix the clipvideo fps which is different from the ori-video bug. 
 
+2023/10/14:
+
+    Fix the utils.write_json bug
+
+    Add more information record about court and add new directory in courts.
+
+    Fix the bug about bisection algorithm. 
+
+    Add 3 test videos.
+
     

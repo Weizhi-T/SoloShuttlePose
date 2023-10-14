@@ -31,7 +31,7 @@ def write_json(data, file_name, save_path="./"):
                 file.write(json.dumps(value, indent=4))
                 file.write('\n')
                 file.write('}')
-                return
+                continue
 
             file.seek(0, os.SEEK_END)
             file.seek(file.tell() - 2, os.SEEK_SET)
@@ -100,10 +100,11 @@ def find_next(video_path, court_detect, begin_frame):
                 court_info_list = []
 
     def find_frame(end_frame):
-        nonlocal video, court_detect, begin_frame
+        nonlocal video, court_detect, begin_frame, total_frames
         while begin_frame + 1 < end_frame:
 
             middle_frame = (begin_frame + end_frame) // 2
+            middle_frame = min(middle_frame, total_frames - 1)
             video.set(cv2.CAP_PROP_POS_FRAMES, middle_frame)
 
             ret, frame = video.read()
@@ -143,18 +144,25 @@ def clear_file(defile_name, save_path="res"):
 
 if __name__ == "__main__":
     test = False
-    clear_file("test1")
+    clear_file("demo", "./")
     if not test:
         exit(0)
     data1 = {"0": {"top": None, "bottom": None}}
     data2 = {"1": {"top": None, "bottom": None}}
     data3 = {"2": {"top": None, "bottom": None}}
+    data4 = {
+        'frame':
+        360,
+        'court': [[671, 471], [1251, 471], [629, 678], [1293, 674], [540, 987],
+                  [1370, 987]]
+    }
 
-    write_json(data1, "demo")
-    write_json(data2, "demo")
-    write_json(data3, "demo")
+    # write_json(data1, "demo")
+    # write_json(data2, "demo")
+    # write_json(data3, "demo")
+    write_json(data4, "demo")
 
     import pandas as pd
 
-    data = pd.read_json("demo.json")
-    print(data)
+    data = pd.DataFrame(pd.read_json("demo.json"))
+    print(data['frame'])

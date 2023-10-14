@@ -16,6 +16,7 @@ import os
 folder_path = "videos"
 video_save_path = "res/videos"
 force_process = True
+check_top_bot_court = False
 
 # skip_frac means skip int(fps)//skip_frac, always set 1 or 2
 # the only control class VideoClip
@@ -59,14 +60,18 @@ for root, dirs, files in os.walk(folder_path):
 
             # example class
             rcnn_pose = RCNNPose()
-            court_detect = CourtDetect()
+            court_detect = CourtDetect(check_top_bot_court)
             video_cilp = VideoClip(video_name, fps, skip_frac, total_frames,
                                    height, width, full_video_path)
 
             begin_frame = court_detect.pre_process(video_path)
             next_frame = find_next(video_path, court_detect, begin_frame)
-            court_dict = {"court": court_detect.normal_court_info}
-            write_json(court_dict, video_name, "res\courts")
+            court_dict = {
+                "frame": begin_frame + int(fps),
+                "court": court_detect.normal_court_info,
+            }
+
+            write_json(court_dict, video_name, "res\courts\court_kp")
 
             with tqdm(total=total_frames) as pbar:
 
@@ -90,8 +95,13 @@ for root, dirs, files in os.walk(folder_path):
                     court_frame, human_frame = frame.copy(), frame.copy()
 
                     if current_frame < next_frame:
-                        write_json(have_court_dict, video_name, "res\courts")
+                        write_json(have_court_dict, video_name,
+                                   "res\courts\have_court")
                         write_json(players_dict, video_name, "res\joints")
+                        court_mse_dict = {str(current_frame): court_detect.mse}
+                        write_json(court_mse_dict, video_name,
+                                   "res\courts\court_mse")
+
                         video_made = video_cilp.add_frame(
                             have_court, frame, current_frame)
 
@@ -128,10 +138,13 @@ for root, dirs, files in os.walk(folder_path):
                     frame = cv2.addWeighted(human_frame, alpha, court_frame,
                                             1 - alpha, 0)
                     video_writer.write(frame)
+
                     have_court_dict = {str(current_frame): True}
-
-                    write_json(have_court_dict, video_name, "res\courts")
-
+                    court_mse_dict = {str(current_frame): court_detect.mse}
+                    write_json(court_mse_dict, video_name,
+                               "res\courts\court_mse")
+                    write_json(have_court_dict, video_name,
+                               "res\courts\have_court")
                     write_json(players_dict, video_name, "res\joints")
 
                     pbar.update(1)

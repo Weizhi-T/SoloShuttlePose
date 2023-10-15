@@ -38,8 +38,12 @@ please look forward to...
 
     Add more information record about court and add new directory in courts.
 
-    Fix the bug about bisection algorithm. 
-
     Add 3 test videos.
 
-    
+2023/10/15:
+
+    Delete check_top_bot_court hyper-parameters
+
+    Fix the bug about bisection algorithm because cv2 will Incorrectly estimated total number of frames. 
+
+    Add more constraint in pre-process function to avoid detect wrong court for one seconds.

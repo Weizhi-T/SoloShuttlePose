@@ -12,12 +12,11 @@ class CourtDetect(object):
     '''
     Tasks involving Keypoint RCNNs
     '''
-    def __init__(self, check_top_bot_court=True):
+    def __init__(self):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.normal_court_info = None
         self.got_info = False
         self.mse = None
-        self.check_top_bot_court = True
         self.__setup_RCNN()
 
     def reset(self):
@@ -52,12 +51,23 @@ class CourtDetect(object):
             print(f"video is pre-processing, current frame is {current_frame}")
 
             # If there are no more frames, break the loop
-            if not ret or last_count >= skip_frames:
+            if last_count >= skip_frames:
                 self.normal_court_info = court_info_list[skip_frames // 2]
+                for court_info in court_info_list:
+                    if not self.__check_court(court_info):
+                        self.normal_court_info = None
+                        court_info_list = []
+                        last_count = 0
+                        print("Detect the wrong court!")
+                        break
+                if self.normal_court_info is not None:
+                    return max(0, current_frame - 2 * skip_frames)
+                else:
+                    continue
 
+            if not ret:
                 # 释放第一次打开的视频
                 video.release()
-
                 return max(0, current_frame - 2 * skip_frames)
 
             court_info, have_court = self.get_court_info(frame)
@@ -302,9 +312,6 @@ class CourtDetect(object):
 
         To some degree, it will impact on getting player's posture data.
         '''
-        if not self.normal_court_info:
-            return True, [0, 1]
-
         court_mp = self.__court_info[4]
         for i in range(len(indices)):
             combination = 1

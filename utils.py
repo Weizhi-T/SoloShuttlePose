@@ -4,6 +4,7 @@ import shutil
 import json
 import cv2
 from CourtDetect import CourtDetect
+import copy
 
 
 def is_file_empty(file_path):
@@ -104,11 +105,14 @@ def find_next(video_path, court_detect, begin_frame):
         while begin_frame + 1 < end_frame:
 
             middle_frame = (begin_frame + end_frame) // 2
-            middle_frame = min(middle_frame, total_frames - 1)
             video.set(cv2.CAP_PROP_POS_FRAMES, middle_frame)
 
             ret, frame = video.read()
-            court_info, have_court = court_detect.get_court_info(frame)
+            if not ret:
+                end_frame = middle_frame
+                continue
+
+            _, have_court = court_detect.get_court_info(frame)
             if have_court:
                 end_frame = middle_frame
             else:

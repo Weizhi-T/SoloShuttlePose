@@ -15,8 +15,8 @@ import os
 
 folder_path = "videos"
 video_save_path = "res/videos"
-force_process = True
-check_top_bot_court = False
+force_process = False
+clear_file("test1")
 
 # skip_frac means skip int(fps)//skip_frac, always set 1 or 2
 # the only control class VideoClip
@@ -41,7 +41,7 @@ for root, dirs, files in os.walk(folder_path):
                 os.makedirs(full_video_path)
 
             # Open the video file
-            video = cv2.VideoCapture(video_path)
+            video = cv2.VideoCapture(video_path, cv2.CAP_FFMPEG)
             # Get video properties
             fps = video.get(cv2.CAP_PROP_FPS)
             width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -60,7 +60,7 @@ for root, dirs, files in os.walk(folder_path):
 
             # example class
             rcnn_pose = RCNNPose()
-            court_detect = CourtDetect(check_top_bot_court)
+            court_detect = CourtDetect()
             video_cilp = VideoClip(video_name, fps, skip_frac, total_frames,
                                    height, width, full_video_path)
 

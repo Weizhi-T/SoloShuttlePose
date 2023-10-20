@@ -5,22 +5,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 from torchvision.transforms import transforms
 from torchvision.transforms import functional as F
+import os
+from utils import write_json, clear_file, is_video_detect, find_next, find_reference
 from VideoClip import VideoClip
-from kpRCNNPose import RCNNPose
+from PoseDetect import PoseDetect
 from CourtDetect import CourtDetect
-import os
-from utils import write_json, clear_file, is_video_detect, find_next
-
-import os
 
 folder_path = "videos"
 video_save_path = "res/videos"
 force_process = False
-clear_file("test1")
-
-# skip_frac means skip int(fps)//skip_frac, always set 1 or 2
-# the only control class VideoClip
 skip_frac = 2
+
+# you can clear some precessed video's file and then process video
+clear_file("test1")
 
 for root, dirs, files in os.walk(folder_path):
     for file in files:
@@ -59,19 +56,32 @@ for root, dirs, files in os.walk(folder_path):
             skip_frames = int(fps) // skip_frac
 
             # example class
-            rcnn_pose = RCNNPose()
+            pose_detect = PoseDetect()
             court_detect = CourtDetect()
             video_cilp = VideoClip(video_name, fps, skip_frac, total_frames,
                                    height, width, full_video_path)
 
-            begin_frame = court_detect.pre_process(video_path)
+            reference_path = find_reference(video_name)
+            if reference_path is None:
+                print(
+                    "There is not reference frame! Now try to find it automatically. "
+                )
+            else:
+                print(f"The reference frame is {reference_path}. ")
+
+            # begin_frame is a rough estimate of valid frames
+            begin_frame = court_detect.pre_process(video_path, reference_path)
+
+            # next_frame is a more accurate estimate of the effective frame using bisection search
             next_frame = find_next(video_path, court_detect, begin_frame)
+            first_frame = next_frame
             court_dict = {
-                "frame": begin_frame + int(fps),
+                "first_frame": first_frame,
+                "next_frame": next_frame,
                 "court": court_detect.normal_court_info,
             }
 
-            write_json(court_dict, video_name, "res\courts\court_kp")
+            write_json(court_dict, video_name, "res\courts\court_kp", "w")
 
             with tqdm(total=total_frames) as pbar:
 
@@ -109,17 +119,17 @@ for root, dirs, files in os.walk(folder_path):
                         pbar.update(1)
                         continue
 
+                    # player detect and court detect
                     court_info, have_court = court_detect.get_court_info(frame)
-
                     if have_court:
-                        original_outputs, human_joints = rcnn_pose.get_human_joints(
+                        original_outputs, human_joints = pose_detect.get_human_joints(
                             frame)
                         have_player, players_joints = court_detect.player_detection(
                             original_outputs)
 
                         if have_player:
                             court_frame = court_detect.draw_court(frame)
-                            human_frame = rcnn_pose.draw_key_points(
+                            human_frame = pose_detect.draw_key_points(
                                 players_joints, frame)
                             players_dict = {
                                 str(current_frame): {
@@ -133,6 +143,13 @@ for root, dirs, files in os.walk(folder_path):
                     if video_made:
                         next_frame = find_next(video_path, court_detect,
                                                current_frame)
+                        court_dict = {
+                            "first_frame": first_frame,
+                            "next_frame": next_frame,
+                            "court": court_detect.normal_court_info,
+                        }
+                        write_json(court_dict, video_name,
+                                   "res\courts\court_kp", "w")
 
                     alpha = 0.6
                     frame = cv2.addWeighted(human_frame, alpha, court_frame,

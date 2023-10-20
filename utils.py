@@ -11,7 +11,7 @@ def is_file_empty(file_path):
     return os.path.getsize(file_path) == 0
 
 
-def write_json(data, file_name, save_path="./"):
+def write_json(data, file_name, save_path="./", mode="r+"):
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     full_path = os.path.join(save_path, f"{file_name}.json")
@@ -19,6 +19,10 @@ def write_json(data, file_name, save_path="./"):
     if not os.path.exists(full_path):
         with open(full_path, 'w') as file:
             pass
+    elif mode == "w":
+        with open(full_path, 'w') as file:
+            json.dump(data, file, indent=4)
+        return
 
     with open(full_path, 'r+') as file:
         for key, value in data.items():
@@ -62,6 +66,25 @@ def is_video_detect(defile_name, save_path="res"):
                     f"{file_path} has been processed! If you still want to process it, please set force_process as True. "
                 )
                 return True
+
+
+def find_reference(video_name, save_path="references"):
+    file_path = None
+
+    if not os.path.exists(save_path):
+        print(
+            f"The path {save_path} does not exist! Try to check the save_path! "
+        )
+        return None
+
+    for root, dirs, files in os.walk(save_path):
+        for file in files:
+            file_name = file.split('.')[0].split('_')[0]
+            if video_name == file_name:
+                file_path = os.path.join(root, file)
+                return file_path
+
+    return file_path
 
 
 def find_next(video_path, court_detect, begin_frame):
@@ -148,9 +171,9 @@ def clear_file(defile_name, save_path="res"):
 
 if __name__ == "__main__":
     test = False
-    clear_file("demo", "./")
     if not test:
         exit(0)
+    clear_file("demo", "./")
     data1 = {"0": {"top": None, "bottom": None}}
     data2 = {"1": {"top": None, "bottom": None}}
     data3 = {"2": {"top": None, "bottom": None}}

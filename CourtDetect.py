@@ -6,6 +6,7 @@ import cv2
 from PIL import Image
 from torchvision.transforms import transforms
 from torchvision.transforms import functional as F
+import os
 
 
 class CourtDetect(object):
@@ -27,7 +28,16 @@ class CourtDetect(object):
         self.__court_kpRCNN = torch.load('models\weights\court_kpRCNN.pth')
         self.__court_kpRCNN.to(self.device).eval()
 
-    def pre_process(self, video_path):
+    def pre_process(self, video_path, reference_path=None):
+
+        if reference_path is not None:
+            frame = cv2.imread(reference_path)
+            self.normal_court_info, have_court = self.get_court_info(frame)
+            if not have_court:
+                print(
+                    "Can't detect the court in the reference frame! Begin to find valid court automatic!"
+                )
+                reference_path = None
 
         # Open the video file
         video = cv2.VideoCapture(video_path)
@@ -47,19 +57,27 @@ class CourtDetect(object):
             current_frame = int(video.get(cv2.CAP_PROP_POS_FRAMES))
             ret, frame = video.read()
 
-            # current frame is not processed
-            print(f"video is pre-processing, current frame is {current_frame}")
+            if reference_path is not None:
+                print(
+                    f"video is pre-processing based on {reference_path}, current frame is {current_frame}"
+                )
+            else:
+                print(
+                    f"video is pre-processing, current frame is {current_frame}"
+                )
 
             # If there are no more frames, break the loop
             if last_count >= skip_frames:
-                self.normal_court_info = court_info_list[skip_frames // 2]
-                for court_info in court_info_list:
-                    if not self.__check_court(court_info):
-                        self.normal_court_info = None
-                        court_info_list = []
-                        last_count = 0
-                        print("Detect the wrong court!")
-                        break
+                if reference_path is None:
+                    self.normal_court_info = court_info_list[skip_frames // 2]
+                    for court_info in court_info_list:
+                        if not self.__check_court(court_info):
+                            self.normal_court_info = None
+                            court_info_list = []
+                            last_count = 0
+                            print("Detect the wrong court!")
+                            break
+
                 if self.normal_court_info is not None:
                     return max(0, current_frame - 2 * skip_frames)
                 else:

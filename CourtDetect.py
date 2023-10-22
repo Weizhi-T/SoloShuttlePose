@@ -7,6 +7,7 @@ from PIL import Image
 from torchvision.transforms import transforms
 from torchvision.transforms import functional as F
 import os
+from utils import read_json
 
 
 class CourtDetect(object):
@@ -18,26 +19,24 @@ class CourtDetect(object):
         self.normal_court_info = None
         self.got_info = False
         self.mse = None
-        self.__setup_RCNN()
+        self.setup_RCNN()
 
     def reset(self):
         self.got_info = False
         self.normal_court_info = None
 
-    def __setup_RCNN(self):
+    def setup_RCNN(self):
         self.__court_kpRCNN = torch.load('models\weights\court_kpRCNN.pth')
         self.__court_kpRCNN.to(self.device).eval()
+
+    def del_RCNN(self):
+        del self.__court_kpRCNN
 
     def pre_process(self, video_path, reference_path=None):
 
         if reference_path is not None:
-            frame = cv2.imread(reference_path)
-            self.normal_court_info, have_court = self.get_court_info(frame)
-            if not have_court:
-                print(
-                    "Can't detect the court in the reference frame! Begin to find valid court automatic!"
-                )
-                reference_path = None
+            reference_data = read_json(reference_path)
+            self.normal_court_info = reference_data['court_info']
 
         # Open the video file
         video = cv2.VideoCapture(video_path)
@@ -59,11 +58,11 @@ class CourtDetect(object):
 
             if reference_path is not None:
                 print(
-                    f"video is pre-processing based on {reference_path}, current frame is {current_frame}"
+                    f"video is pre-processing based on {reference_path} for court, current frame is {current_frame}"
                 )
             else:
                 print(
-                    f"video is pre-processing, current frame is {current_frame}"
+                    f"video is pre-processing, current frame is {current_frame} for court"
                 )
 
             # If there are no more frames, break the loop
@@ -79,12 +78,12 @@ class CourtDetect(object):
                             break
 
                 if self.normal_court_info is not None:
+                    video.release()
                     return max(0, current_frame - 2 * skip_frames)
                 else:
                     continue
 
             if not ret:
-                # 释放第一次打开的视频
                 video.release()
                 return max(0, current_frame - 2 * skip_frames)
 
@@ -97,7 +96,8 @@ class CourtDetect(object):
                     print(
                         "Fail to pre-process! Please to check the video or program!"
                     )
-                    exit(0)
+                    return total_frames
+
                 video.set(cv2.CAP_PROP_POS_FRAMES, current_frame + skip_frames)
                 last_count = 0
                 court_info_list = []
@@ -115,10 +115,10 @@ class CourtDetect(object):
         image = img.copy()
         self.mse = None
         frame_height, frame_weight, _ = image.shape
-        img = F.to_tensor(img)
-        img = img.unsqueeze(0)
-        img = img.to(self.device)
-        output = self.__court_kpRCNN(img)
+        image = F.to_tensor(image)
+        image = image.unsqueeze(0)
+        image = image.to(self.device)
+        output = self.__court_kpRCNN(image)
         scores = output[0]['scores'].detach().cpu().numpy()
         high_scores_idxs = np.where(scores > 0.7)[0].tolist()
         post_nms_idxs = torchvision.ops.nms(
@@ -135,11 +135,6 @@ class CourtDetect(object):
             keypoints.append([list(map(int, kp[:2])) for kp in kps])
 
         self.__true_court_points = copy.deepcopy(keypoints[0])
-
-        # check if current court information get from the normal camera view
-        if self.normal_court_info is not None:
-            self.got_info = self.__check_court(self.__true_court_points)
-            return None, self.got_info
         '''
         l -> left, r -> right, y = a * x + b
         '''
@@ -166,7 +161,20 @@ class CourtDetect(object):
 
         self.__court_info = [l_a, l_b, r_a, r_b, mp_y]
 
-        self.__multi_points = self.__partition(self.__correction()).tolist()
+        self.__correct_points = self.__correction()
+
+        # check if current court information get from the normal camera view
+        if self.normal_court_info is not None:
+            self.got_info = self.__check_court(self.__correct_points)
+            if not self.got_info:
+                return None, self.got_info
+
+        if self.normal_court_info is None:
+            self.__multi_points = self.__partition(
+                self.__correct_points).tolist()
+        else:
+            self.__multi_points = self.__partition(
+                self.normal_court_info).tolist()
 
         keypoints[0][0][0] -= 80
         keypoints[0][0][1] -= 80
@@ -183,12 +191,18 @@ class CourtDetect(object):
 
         self.got_info = True
 
-        return self.__true_court_points, self.got_info
+        # return self.__true_court_points, self.got_info
+        return self.__correct_points.tolist(), self.got_info
 
-    def draw_court(self, image):
-        if not self.got_info:
+    def draw_court(self, image, mode="auto"):
+        if not self.got_info and mode == "auto":
             print("There is not court in the image! So you can't draw it.")
             return image
+        elif mode == "frame_select":
+            if self.__correct_points is None:
+                return image
+            self.__multi_points = self.__partition(
+                self.__correct_points).tolist()
 
         image_copy = image.copy()
         c_edges = [[0, 1], [0, 5], [1, 2], [1, 6], [2, 3], [2, 7], [3, 4],
@@ -232,7 +246,8 @@ class CourtDetect(object):
         court_kp[5][1] = by
         return court_kp
 
-    def __partition(self, court_kp):
+    def __partition(self, court_crkp):
+        court_kp = np.array(court_crkp)
         tlspace = np.array([
             np.round((court_kp[0][0] - court_kp[2][0]) / 3),
             np.round((court_kp[2][1] - court_kp[0][1]) / 3)

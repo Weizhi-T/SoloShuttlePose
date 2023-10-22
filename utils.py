@@ -3,12 +3,17 @@ import os
 import shutil
 import json
 import cv2
-from CourtDetect import CourtDetect
 import copy
 
 
 def is_file_empty(file_path):
     return os.path.getsize(file_path) == 0
+
+
+def read_json(json_path):
+    with open(json_path, 'r') as f:
+        json_data = json.load(f)
+    return json_data
 
 
 def write_json(data, file_name, save_path="./", mode="r+"):
@@ -167,6 +172,35 @@ def clear_file(defile_name, save_path="res"):
                 file_path = os.path.join(root, file)
                 os.remove(file_path)
                 print(f"{file_path} has been deleted.")
+
+
+import cv2
+
+
+def blend_images(image_list, weights):
+    """
+    Fuse multiple images with specified weights
+    
+    parameters:
+    image_list: list of images, each element is a single image
+    weights: fusion weights, corresponds to the image list, ranges from 0.0 to 1.0
+    
+    Return value:
+    The fused image
+    
+    """
+    # Make sure the image is the same size
+    height, width, channels = image_list[0].shape
+    for i in range(1, len(image_list)):
+        image_list[i] = cv2.resize(image_list[i], (width, height))
+
+    # image fusion
+    blended = image_list[0]
+    for i in range(1, len(image_list)):
+        blended = cv2.addWeighted(blended, 1 - weights[i], image_list[i],
+                                  weights[i], 0)
+
+    return blended
 
 
 if __name__ == "__main__":

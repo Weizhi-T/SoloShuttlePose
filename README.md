@@ -56,3 +56,13 @@ please look forward to...
 
     Modified the content of 'res/court/court_kp' form. 
 
+2023/10/22:
+ 
+    Add the "NetDetect.py" for net detection.
+    
+    Make "FrameSelect.py" select frames faster by selecting from the center. 
+
+    Fix the "CourtDetect.py", "NetDetect.py" and "FrameSelect.py" bugs.
+
+    Delete the court-info-analysis folder.   
+

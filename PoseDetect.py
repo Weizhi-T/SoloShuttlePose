@@ -11,14 +11,17 @@ from torchvision.transforms import functional as F
 class PoseDetect:
     def __init__(self):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.__setup_RCNN()
+        self.setup_RCNN()
 
     def reset(self):
         self.got_info = False
 
-    def __setup_RCNN(self):
-        self.__kpRCNN = torch.load('models\weights\kpRCNN.pth')
-        self.__kpRCNN.to(self.device).eval()
+    def setup_RCNN(self):
+        self.__pose_kpRCNN = torch.load('models\weights\kpRCNN.pth')
+        self.__pose_kpRCNN.to(self.device).eval()
+
+    def del_RCNN(self):
+        del self.__pose_kpRCNN
 
     def get_human_joints(self, frame):
         frame_copy = frame.copy()
@@ -38,7 +41,7 @@ class PoseDetect:
         pil_image = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))
         t_image = transforms.Compose(
             [transforms.ToTensor()])(pil_image).unsqueeze(0).to(self.device)
-        outputs = self.__kpRCNN(t_image)
+        outputs = self.__pose_kpRCNN(t_image)
         return outputs
 
     def draw_key_points(self, filtered_outputs, image, human_limit=-1):

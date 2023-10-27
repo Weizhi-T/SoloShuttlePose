@@ -8,11 +8,9 @@ Lightweight singles badminton player posture, court detection tool. The framewor
 
 2. net detect
 
-3. multi-human detect
+3. players detect
 
-4. players detect
-
-5. Automatically edits out videos from normal camera viewpoints
+4. Automatically edits out videos from normal camera viewpoints
 
  # Upcoming Features
 

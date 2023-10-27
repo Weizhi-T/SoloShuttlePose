@@ -177,7 +177,7 @@ def clear_file(defile_name, save_path="res"):
 import cv2
 
 
-def blend_images(image_list, weights):
+def blend_images(image_list):
     """
     Fuse multiple images with specified weights
     
@@ -189,6 +189,7 @@ def blend_images(image_list, weights):
     The fused image
     
     """
+    weights = [0.5] * len(image_list)
     # Make sure the image is the same size
     height, width, channels = image_list[0].shape
     for i in range(1, len(image_list)):
@@ -199,7 +200,6 @@ def blend_images(image_list, weights):
     for i in range(1, len(image_list)):
         blended = cv2.addWeighted(blended, 1 - weights[i], image_list[i],
                                   weights[i], 0)
-
     return blended
 
 

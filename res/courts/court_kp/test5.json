@@ -1,7 +1,7 @@
 {
-    "game_first_frame": 0,
-    "game_next_frame": 299,
-    "court": [
+    "first_rally_frame": 0,
+    "next_rally_frame": 299,
+    "court_info": [
         [
             728,
             544
@@ -27,7 +27,7 @@
             990
         ]
     ],
-    "net": [
+    "net_info": [
         [
             596,
             528

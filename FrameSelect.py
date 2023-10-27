@@ -4,11 +4,12 @@ import os
 import copy
 import tkinter as tk
 from tkinter import messagebox
-from utils import find_reference
-from CourtDetect import CourtDetect
-from PoseDetect import PoseDetect
-from NetDetect import NetDetect
-from utils import write_json
+from src.tools.utils import write_json, clear_file, is_video_detect, find_next, find_reference
+from src.tools.VideoClip import VideoClip
+from src.models.PoseDetect import PoseDetect
+from src.models.CourtDetect import CourtDetect
+from src.models.NetDetect import NetDetect
+import argparse
 
 
 def yes_button_click():
@@ -127,7 +128,17 @@ def key_press(event):
     update_image()
 
 
-folder_path = "videos"
+parser = argparse.ArgumentParser(description='para transfer')
+parser.add_argument('--folder_path',
+                    type=str,
+                    default="videos",
+                    help='folder_path -> str type.')
+args = parser.parse_args()
+print(args)
+
+folder_path = args.folder_path
+
+# for select
 video_name = None
 user_choice = True
 

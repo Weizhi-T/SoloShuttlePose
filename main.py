@@ -6,20 +6,33 @@ import matplotlib.pyplot as plt
 from torchvision.transforms import transforms
 from torchvision.transforms import functional as F
 import os
-from utils import write_json, clear_file, is_video_detect, find_next, find_reference, blend_images
-from VideoClip import VideoClip
-from PoseDetect import PoseDetect
-from CourtDetect import CourtDetect
-from NetDetect import NetDetect
+from src.tools.utils import write_json, clear_file, is_video_detect, find_next, find_reference
+from src.tools.VideoClip import VideoClip
+from src.models.PoseDetect import PoseDetect
+from src.models.CourtDetect import CourtDetect
+from src.models.NetDetect import NetDetect
+import argparse
 
-folder_path = "videos"
-video_save_path = "res/videos"
-force_process = False
-skip_frac = 2
+parser = argparse.ArgumentParser(description='para transfer')
+parser.add_argument('--folder_path',
+                    type=str,
+                    default="videos",
+                    help='folder_path -> str type.')
+parser.add_argument('--result_path',
+                    type=str,
+                    default="res",
+                    help='result_path -> str type.')
+parser.add_argument('--force_process',
+                    action='store_true',
+                    default=False,
+                    help='force_process -> bool type.')
 
-# you can clear some precessed video's file and then process video
-clear_file("test5")
-clear_file("test6")
+args = parser.parse_args()
+print(args)
+
+folder_path = args.folder_path
+force_process = args.force_process
+result_path = args.result_path
 
 for root, dirs, files in os.walk(folder_path):
     for file in files:
@@ -35,7 +48,7 @@ for root, dirs, files in os.walk(folder_path):
                 else:
                     continue
 
-            full_video_path = os.path.join(video_save_path, video_name)
+            full_video_path = os.path.join(f"{result_path}/videos", video_name)
             if not os.path.exists(full_video_path):
                 os.makedirs(full_video_path)
 
@@ -43,26 +56,17 @@ for root, dirs, files in os.walk(folder_path):
             video = cv2.VideoCapture(video_path, cv2.CAP_FFMPEG)
             # Get video properties
             fps = video.get(cv2.CAP_PROP_FPS)
-            width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
             height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
-            # Define the codec for the output video
-            fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-            video_writer = cv2.VideoWriter(
-                f'{full_video_path}/{video_name}.mp4', fourcc, fps,
-                (width, height))
+            width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
 
             total_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
-
-            # compute skip_frames
-            skip_frames = int(fps) // skip_frac
 
             # example class
             pose_detect = PoseDetect()
             court_detect = CourtDetect()
             net_detect = NetDetect()
-            video_cilp = VideoClip(video_name, fps, skip_frac, total_frames,
-                                   height, width, full_video_path)
+            video_cilp = VideoClip(video_name, fps, total_frames, width,
+                                   height, full_video_path)
 
             reference_path = find_reference(video_name)
             if reference_path is None:
@@ -84,16 +88,17 @@ for root, dirs, files in os.walk(folder_path):
             normal_net_info = net_detect.normal_net_info
 
             court_dict = {
-                "game_first_frame": first_frame,
-                "game_next_frame": next_frame,
-                "court": normal_court_info,
-                "net": normal_net_info,
+                "first_rally_frame": first_frame,
+                "next_rally_frame": next_frame,
+                "court_info": normal_court_info,
+                "net_info": normal_net_info,
             }
 
-            write_json(court_dict, video_name, "res\courts\court_kp", "w")
+            write_json(court_dict, video_name,
+                       f"{result_path}/courts/court_kp", "w")
 
             # release memory
-            net_detect.del_RCNN()
+            # net_detect.del_RCNN()
 
             with tqdm(total=total_frames) as pbar:
 
@@ -118,16 +123,16 @@ for root, dirs, files in os.walk(folder_path):
 
                     if current_frame < next_frame:
                         write_json(have_court_dict, video_name,
-                                   "res\courts\have_court")
-                        write_json(players_dict, video_name, "res\joints")
+                                   f"{result_path}/courts/have_court")
+                        write_json(players_dict, video_name,
+                                   f"{result_path}/players/player_kp")
                         court_mse_dict = {str(current_frame): court_detect.mse}
                         write_json(court_mse_dict, video_name,
-                                   "res\courts\court_mse")
+                                   f"{result_path}/courts/court_mse")
 
                         video_made = video_cilp.add_frame(
                             have_court, frame, current_frame)
 
-                        video_writer.write(frame)
                         pbar.update(1)
                         continue
 
@@ -135,23 +140,15 @@ for root, dirs, files in os.walk(folder_path):
                     court_info, have_court = court_detect.get_court_info(frame)
                     if have_court:
 
-                        pose_detect.setup_RCNN()
+                        # pose_detect.setup_RCNN()
                         original_outputs, human_joints = pose_detect.get_human_joints(
                             frame)
-                        pose_detect.del_RCNN()
+                        # pose_detect.del_RCNN()
 
                         have_player, players_joints = court_detect.player_detection(
                             original_outputs)
 
                         if have_player:
-                            # draw human, court, players
-                            final_frame = court_detect.draw_court(final_frame)
-
-                            final_frame = net_detect.draw_net(final_frame)
-
-                            final_frame = pose_detect.draw_key_points(
-                                players_joints, final_frame)
-
                             players_dict = {
                                 str(current_frame): {
                                     "top": players_joints[0],
@@ -165,26 +162,24 @@ for root, dirs, files in os.walk(folder_path):
                         next_frame = find_next(video_path, court_detect,
                                                current_frame)
                         court_dict = {
-                            "game_first_frame": first_frame,
-                            "game_next_frame": next_frame,
-                            "court": normal_court_info,
-                            "net": normal_net_info,
+                            "first_rally_frame": first_frame,
+                            "next_rally_frame": next_frame,
+                            "court_info": normal_court_info,
+                            "net_info": normal_net_info,
                         }
                         write_json(court_dict, video_name,
-                                   "res\courts\court_kp", "w")
-
-                    video_writer.write(final_frame)
+                                   f"{result_path}/courts/court_kp", "w")
 
                     have_court_dict = {str(current_frame): True}
                     court_mse_dict = {str(current_frame): court_detect.mse}
                     write_json(court_mse_dict, video_name,
-                               "res\courts\court_mse")
+                               f"{result_path}/courts/court_mse")
                     write_json(have_court_dict, video_name,
-                               "res\courts\have_court")
-                    write_json(players_dict, video_name, "res\joints")
+                               f"{result_path}/courts/have_court")
+                    write_json(players_dict, video_name,
+                               f"{result_path}/players/player_kp")
 
                     pbar.update(1)
 
             # Release the video capture and writer objects
             video.release()
-            video_writer.release()

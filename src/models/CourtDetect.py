@@ -7,7 +7,7 @@ from PIL import Image
 from torchvision.transforms import transforms
 from torchvision.transforms import functional as F
 import os
-from utils import read_json
+from src.tools.utils import read_json
 
 
 class CourtDetect(object):
@@ -26,18 +26,13 @@ class CourtDetect(object):
         self.normal_court_info = None
 
     def setup_RCNN(self):
-        self.__court_kpRCNN = torch.load('models\weights\court_kpRCNN.pth')
+        self.__court_kpRCNN = torch.load('src/models/weights/court_kpRCNN.pth')
         self.__court_kpRCNN.to(self.device).eval()
 
     def del_RCNN(self):
         del self.__court_kpRCNN
 
     def pre_process(self, video_path, reference_path=None):
-
-        if reference_path is not None:
-            reference_data = read_json(reference_path)
-            self.normal_court_info = reference_data['court_info']
-
         # Open the video file
         video = cv2.VideoCapture(video_path)
 
@@ -50,6 +45,13 @@ class CourtDetect(object):
         court_info_list = []
         # the number of skip frams per time
         skip_frames = int(fps)
+
+        if reference_path is not None:
+            reference_data = read_json(reference_path)
+            self.normal_court_info = reference_data['court_info']
+            if self.normal_court_info is None:
+                video.release()
+                return total_frames
 
         while True:
             # Read a frame from the video
@@ -80,6 +82,8 @@ class CourtDetect(object):
                 if self.normal_court_info is not None:
                     video.release()
                     return max(0, current_frame - 2 * skip_frames)
+                elif not ret:
+                    return total_frames
                 else:
                     continue
 

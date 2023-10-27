@@ -7,7 +7,8 @@ from PIL import Image
 from torchvision.transforms import transforms
 from torchvision.transforms import functional as F
 import os
-from utils import read_json
+from src.tools.utils import read_json
+import sys
 
 
 class NetDetect(object):
@@ -26,27 +27,13 @@ class NetDetect(object):
         self.normal_net_info = None
 
     def setup_RCNN(self):
-        self.__net_kpRCNN = torch.load('models/weights/net_kpRCNN.pth')
+        self.__net_kpRCNN = torch.load('src/models/weights/net_kpRCNN.pth')
         self.__net_kpRCNN.to(self.device).eval()
 
     def del_RCNN(self):
         del self.__net_kpRCNN
 
     def pre_process(self, video_path, reference_path=None):
-        # net detect don't need to do bisection search.
-        if reference_path is not None:
-
-            reference_data = read_json(reference_path)
-            self.normal_net_info = reference_data['net_info']
-            self.__multi_points = self.__partition(
-                self.normal_net_info).tolist()
-
-            frame_number = reference_data['frame']
-            print(
-                f"video is pre-processing based on {reference_path} for net, frame number is {frame_number}"
-            )
-            return frame_number
-
         # Open the video file
         video = cv2.VideoCapture(video_path)
 
@@ -59,6 +46,30 @@ class NetDetect(object):
         net_info_list = []
         # the number of skip frams per time
         skip_frames = max(int(fps) // 5, 5)
+
+        # net detect don't need to do bisection search.
+        if reference_path is not None:
+            reference_data = read_json(reference_path)
+            self.normal_net_info = reference_data['net_info']
+            if self.normal_net_info is None:
+                video.release()
+                return total_frames
+            self.__multi_points = self.__partition(
+                self.normal_net_info).tolist()
+
+            frame_number = reference_data.get('frame')
+            if frame_number is None:
+                frame_number = reference_data.get('first_rally_frame')
+                if frame_number is None:
+                    print('Error: frame number not found in reference data')
+                    video.release()
+                    sys.exit(1)
+
+            print(
+                f"video is pre-processing based on {reference_path} for net, frame number is {frame_number}"
+            )
+            video.release()
+            return frame_number
 
         while True:
             # Read a frame from the video
@@ -92,7 +103,7 @@ class NetDetect(object):
                     continue
 
             if not ret:
-                # 释放第一次打开的视频
+                # release the video
                 video.release()
                 return max(0, current_frame - 2 * skip_frames)
 

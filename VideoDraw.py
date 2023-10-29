@@ -154,7 +154,7 @@ for root, dirs, files in os.walk(folder_path):
                                 if loca_dict["visible"] == 1:
                                     x = int(loca_dict['x'])
                                     y = int(loca_dict['y'])
-                                    cv2.circle(frame, (x, y), 5, (0, 0, 255),
+                                    cv2.circle(frame, (x, y), 8, (0, 0, 255),
                                                -1)
                         if trajectory:
                             if str(current_frame) in ball_dict:

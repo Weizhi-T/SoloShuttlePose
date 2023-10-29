@@ -16,7 +16,7 @@ Lightweight singles badminton player posture, court detection tool. The framewor
 
 6. Automatically edits out videos from normal camera viewpoints(show rally)
 
- # Upcoming Features
+# Upcoming Functions
 
 please look forward to...
 
@@ -26,4 +26,15 @@ please look forward to...
 
 [Update journal](documents/Update-journal.md).
 
-[Hyper-prameters-intro.md](docs/Hyper-prameters-intro.md)
+[Hyper-prameters-intro](docs/Hyper-prameters-intro.md)
+
+# References
+
+[Automated-Hit-frame-Detection-for-Badminton-Match-Analysis](https://github.com/arthur900530/Automated-Hit-frame-Detection-for-Badminton-Match-Analysis)
+
+[keypoint_rcnn_training_pytorch](https://github.com/alexppppp/keypoint_rcnn_training_pytorch)
+
+[TrackNetV2-pytorch](https://github.com/ChgygLin/TrackNetV2-pytorch)
+
+[TrackNetv3](https://github.com/alenzenx/TracknetV3)
+

@@ -68,3 +68,6 @@
 
     Modify the type and number of hyperparameters. 
 
+    Add the video information record. 
+
+    Clear the polyfit Rankwarning information. 

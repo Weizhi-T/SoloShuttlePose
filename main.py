@@ -13,6 +13,10 @@ from src.models.CourtDetect import CourtDetect
 from src.models.NetDetect import NetDetect
 import argparse
 from src.tools.BallDetect import ball_detect
+import warnings
+
+# clear the polyfit Rankwarning
+warnings.simplefilter('ignore', np.RankWarning)
 
 parser = argparse.ArgumentParser(description='para transfer')
 parser.add_argument('--folder_path',
@@ -59,8 +63,17 @@ for root, dirs, files in os.walk(folder_path):
             fps = video.get(cv2.CAP_PROP_FPS)
             height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
             width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
-
             total_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+
+            # write video information
+            video_dict = {
+                "video_name": video_name,
+                "fps": fps,
+                "height": height,
+                "width": width,
+                "total_frames": total_frames
+            }
+            write_json(video_dict, video_name, full_video_path)
 
             # example class
             pose_detect = PoseDetect()

@@ -168,7 +168,6 @@ def event_detect(json_path, result_path):
 
     print()
     print(f'End : {list(final_predict)[-1]+ start_frame}')
-    print()
 
     folder_name = json_name.split('_')[0]
     event_path = os.path.join(result_path, f"event/{folder_name}")

@@ -19,7 +19,7 @@ class VideoClip(object):
         self.frame_width = frame_width
         self.frame_list = []
         self.begin = 0
-        self.end = 0
+        self.end = 1
         self.no_court_cnt = 0
 
     def __setup(self):
@@ -68,7 +68,7 @@ class VideoClip(object):
     def __make_video(self):
 
         # 设置输出视频的名称、编解码器、帧率和视频分辨率
-        video_name = f"{self.video_name}_{self.begin}-{self.end}.mp4"
+        video_name = f"{self.video_name}_{self.begin}-{self.end-1}.mp4"
         full_path = os.path.join(self.save_path, video_name)
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         fps = self.fps

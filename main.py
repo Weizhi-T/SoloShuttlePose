@@ -6,12 +6,13 @@ import matplotlib.pyplot as plt
 from torchvision.transforms import transforms
 from torchvision.transforms import functional as F
 import os
-from src.tools.utils import write_json, clear_file, is_video_detect, find_next, find_reference
+from src.tools.utils import write_json, clear_file, is_video_detect, find_next, find_reference, extract_numbers
 from src.tools.VideoClip import VideoClip
 from src.models.PoseDetect import PoseDetect
 from src.models.CourtDetect import CourtDetect
 from src.models.NetDetect import NetDetect
 import argparse
+from src.tools.BallDetect import ball_detect
 
 parser = argparse.ArgumentParser(description='para transfer')
 parser.add_argument('--folder_path',
@@ -22,16 +23,16 @@ parser.add_argument('--result_path',
                     type=str,
                     default="res",
                     help='result_path -> str type.')
-parser.add_argument('--force_process',
+parser.add_argument('--force',
                     action='store_true',
                     default=False,
-                    help='force_process -> bool type.')
+                    help='force -> bool type.')
 
 args = parser.parse_args()
 print(args)
 
 folder_path = args.folder_path
-force_process = args.force_process
+force = args.force
 result_path = args.result_path
 
 for root, dirs, files in os.walk(folder_path):
@@ -43,7 +44,7 @@ for root, dirs, files in os.walk(folder_path):
             video_name = os.path.basename(video_path).split('.')[0]
 
             if is_video_detect(video_name):
-                if force_process:
+                if force:
                     clear_file(video_name)
                 else:
                     continue
@@ -183,3 +184,15 @@ for root, dirs, files in os.walk(folder_path):
 
             # Release the video capture and writer objects
             video.release()
+
+            # tracknet
+            print("-" * 10 + "Starting Ball Detection" + "-" * 10)
+            for res_root, res_dirs, res_files in os.walk(
+                    f"{result_path}/videos/{video_name}"):
+                for res_file in res_files:
+                    _, ext = os.path.splitext(res_file)
+                    if ext.lower() in ['.mp4']:
+                        res_video_path = os.path.join(res_root, res_file)
+                        print(res_video_path)
+                        ball_detect(res_video_path, f"{result_path}/ball")
+            print("-" * 10 + "End Badminton Detection" + "-" * 10)

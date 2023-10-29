@@ -58,3 +58,13 @@
 
     Separate detection from keypoint mapping, split 'main.py' into two files: 'main.py' and 'FrameSelect.py'.
 
+2023/10/28:
+
+    Integrated tracknetv2-pytorch.
+
+2023/10/29:
+
+    Integrated trajectory noise reduction, trajectory display, and hitting frame capture. 
+
+    Modify the type and number of hyperparameters. 
+

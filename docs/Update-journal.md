@@ -71,3 +71,5 @@
     Add the video information record. 
 
     Clear the polyfit Rankwarning information. 
+
+    Fix the "VideoDraw.py" the bug of deleting processed videos. 

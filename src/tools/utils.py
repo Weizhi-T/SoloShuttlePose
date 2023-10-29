@@ -77,7 +77,6 @@ def is_video_detect(defile_name, save_path="res"):
 
         for file in files:
             file_name = file.split('.')[0]
-
             if defile_name == file_name:
                 file_path = os.path.join(root, file)
                 print(

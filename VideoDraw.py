@@ -73,11 +73,10 @@ for root, dirs, files in os.walk(folder_path):
             print(video_path)
             video_name = os.path.basename(video_path).split('.')[0]
 
-            if is_video_detect(video_name,
-                               f"{result_path}/videos/{video_name}"):
+            process_video_path = f"{result_path}/videos/{video_name}/{video_name}.mp4"
+            if os.path.exists(process_video_path):
                 if force:
-                    clear_file(video_name,
-                               f"{result_path}/videos/{video_name}")
+                    os.remove(process_video_path)
                 else:
                     continue
 

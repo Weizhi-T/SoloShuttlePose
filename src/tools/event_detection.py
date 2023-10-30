@@ -178,9 +178,9 @@ def event_detect(json_path, result_path):
     for i in range(len(frames)):
         event_dict = {}
         if i in final_predict:
-            event_dict = {"frame": frames[i], "event": 1}
+            event_dict = {f"{frames[i]}": 1}
         else:
-            event_dict = {"frame": frames[i], "event": 0}
+            event_dict = {f"{frames[i]}": 0}
         write_json(event_dict, json_name, f"{event_path}")
 
     plt.savefig(f"{img_path}/{json_name}.png")

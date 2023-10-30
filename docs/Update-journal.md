@@ -73,3 +73,8 @@
     Clear the polyfit Rankwarning information. 
 
     Fix the "VideoDraw.py" the bug of deleting processed videos. 
+
+
+2023/10/30:
+
+    Add yt-dlp shell script for ShullteSet dataset video downloads. 

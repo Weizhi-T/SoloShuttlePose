@@ -1,7 +1,7 @@
 
 You can download weights in https://drive.google.com/drive/folders/16mVjXrul3VaXKfHHYauY0QI-SG-JVLvL?usp=sharing
 
-You can refer to 'tree.txt' for the configuration of the file.
+add the weight folder to the "src/model"
 
 # Creating a Environment
 

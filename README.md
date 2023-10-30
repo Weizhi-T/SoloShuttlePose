@@ -38,3 +38,6 @@ please look forward to...
 
 [TrackNetv3](https://github.com/alenzenx/TracknetV3)
 
+[CoachAI](https://github.com/wywyWang/CoachAI-Projects)
+
+[yt-dlp](https://github.com/yt-dlp/yt-dlp)

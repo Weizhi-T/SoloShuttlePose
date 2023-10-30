@@ -1,1054 +1,528 @@
 {
-"frame": 1,
-"event": 0,
-"frame": 2,
-"event": 0,
-"frame": 3,
-"event": 0,
-"frame": 4,
-"event": 0,
-"frame": 5,
-"event": 0,
-"frame": 6,
-"event": 0,
-"frame": 7,
-"event": 0,
-"frame": 8,
-"event": 0,
-"frame": 9,
-"event": 0,
-"frame": 10,
-"event": 0,
-"frame": 11,
-"event": 0,
-"frame": 12,
-"event": 0,
-"frame": 13,
-"event": 0,
-"frame": 14,
-"event": 0,
-"frame": 15,
-"event": 0,
-"frame": 16,
-"event": 0,
-"frame": 17,
-"event": 0,
-"frame": 18,
-"event": 1,
-"frame": 19,
-"event": 0,
-"frame": 20,
-"event": 0,
-"frame": 21,
-"event": 0,
-"frame": 22,
-"event": 0,
-"frame": 23,
-"event": 0,
-"frame": 24,
-"event": 0,
-"frame": 25,
-"event": 0,
-"frame": 26,
-"event": 0,
-"frame": 27,
-"event": 0,
-"frame": 28,
-"event": 0,
-"frame": 29,
-"event": 0,
-"frame": 30,
-"event": 0,
-"frame": 31,
-"event": 0,
-"frame": 32,
-"event": 0,
-"frame": 33,
-"event": 0,
-"frame": 34,
-"event": 0,
-"frame": 35,
-"event": 0,
-"frame": 36,
-"event": 0,
-"frame": 37,
-"event": 0,
-"frame": 38,
-"event": 0,
-"frame": 39,
-"event": 0,
-"frame": 40,
-"event": 0,
-"frame": 41,
-"event": 0,
-"frame": 42,
-"event": 0,
-"frame": 43,
-"event": 0,
-"frame": 44,
-"event": 0,
-"frame": 45,
-"event": 1,
-"frame": 46,
-"event": 0,
-"frame": 47,
-"event": 0,
-"frame": 48,
-"event": 0,
-"frame": 49,
-"event": 0,
-"frame": 50,
-"event": 0,
-"frame": 51,
-"event": 0,
-"frame": 52,
-"event": 0,
-"frame": 53,
-"event": 0,
-"frame": 54,
-"event": 0,
-"frame": 55,
-"event": 0,
-"frame": 56,
-"event": 0,
-"frame": 57,
-"event": 0,
-"frame": 58,
-"event": 0,
-"frame": 59,
-"event": 0,
-"frame": 60,
-"event": 0,
-"frame": 61,
-"event": 1,
-"frame": 62,
-"event": 0,
-"frame": 63,
-"event": 0,
-"frame": 64,
-"event": 0,
-"frame": 65,
-"event": 0,
-"frame": 66,
-"event": 0,
-"frame": 67,
-"event": 0,
-"frame": 68,
-"event": 0,
-"frame": 69,
-"event": 0,
-"frame": 70,
-"event": 0,
-"frame": 71,
-"event": 0,
-"frame": 72,
-"event": 0,
-"frame": 73,
-"event": 1,
-"frame": 74,
-"event": 0,
-"frame": 75,
-"event": 0,
-"frame": 76,
-"event": 0,
-"frame": 77,
-"event": 0,
-"frame": 78,
-"event": 0,
-"frame": 79,
-"event": 0,
-"frame": 80,
-"event": 0,
-"frame": 81,
-"event": 0,
-"frame": 82,
-"event": 0,
-"frame": 83,
-"event": 0,
-"frame": 84,
-"event": 0,
-"frame": 85,
-"event": 0,
-"frame": 86,
-"event": 0,
-"frame": 87,
-"event": 0,
-"frame": 88,
-"event": 0,
-"frame": 89,
-"event": 0,
-"frame": 90,
-"event": 0,
-"frame": 91,
-"event": 0,
-"frame": 92,
-"event": 0,
-"frame": 93,
-"event": 0,
-"frame": 94,
-"event": 0,
-"frame": 95,
-"event": 0,
-"frame": 96,
-"event": 0,
-"frame": 97,
-"event": 0,
-"frame": 98,
-"event": 0,
-"frame": 99,
-"event": 0,
-"frame": 100,
-"event": 0,
-"frame": 101,
-"event": 0,
-"frame": 102,
-"event": 0,
-"frame": 103,
-"event": 0,
-"frame": 104,
-"event": 0,
-"frame": 105,
-"event": 0,
-"frame": 106,
-"event": 0,
-"frame": 107,
-"event": 0,
-"frame": 108,
-"event": 0,
-"frame": 109,
-"event": 0,
-"frame": 110,
-"event": 0,
-"frame": 111,
-"event": 0,
-"frame": 112,
-"event": 0,
-"frame": 113,
-"event": 0,
-"frame": 114,
-"event": 0,
-"frame": 115,
-"event": 0,
-"frame": 116,
-"event": 0,
-"frame": 117,
-"event": 0,
-"frame": 118,
-"event": 0,
-"frame": 119,
-"event": 0,
-"frame": 120,
-"event": 0,
-"frame": 121,
-"event": 0,
-"frame": 122,
-"event": 1,
-"frame": 123,
-"event": 0,
-"frame": 124,
-"event": 0,
-"frame": 125,
-"event": 0,
-"frame": 126,
-"event": 0,
-"frame": 127,
-"event": 0,
-"frame": 128,
-"event": 0,
-"frame": 129,
-"event": 0,
-"frame": 130,
-"event": 0,
-"frame": 131,
-"event": 0,
-"frame": 132,
-"event": 0,
-"frame": 133,
-"event": 0,
-"frame": 134,
-"event": 0,
-"frame": 135,
-"event": 0,
-"frame": 136,
-"event": 0,
-"frame": 137,
-"event": 0,
-"frame": 138,
-"event": 0,
-"frame": 139,
-"event": 0,
-"frame": 140,
-"event": 0,
-"frame": 141,
-"event": 0,
-"frame": 142,
-"event": 0,
-"frame": 143,
-"event": 0,
-"frame": 144,
-"event": 0,
-"frame": 145,
-"event": 0,
-"frame": 146,
-"event": 0,
-"frame": 147,
-"event": 0,
-"frame": 148,
-"event": 0,
-"frame": 149,
-"event": 0,
-"frame": 150,
-"event": 0,
-"frame": 151,
-"event": 0,
-"frame": 152,
-"event": 0,
-"frame": 153,
-"event": 0,
-"frame": 154,
-"event": 0,
-"frame": 155,
-"event": 0,
-"frame": 156,
-"event": 0,
-"frame": 157,
-"event": 0,
-"frame": 158,
-"event": 0,
-"frame": 159,
-"event": 0,
-"frame": 160,
-"event": 1,
-"frame": 161,
-"event": 0,
-"frame": 162,
-"event": 0,
-"frame": 163,
-"event": 0,
-"frame": 164,
-"event": 0,
-"frame": 165,
-"event": 0,
-"frame": 166,
-"event": 0,
-"frame": 167,
-"event": 0,
-"frame": 168,
-"event": 0,
-"frame": 169,
-"event": 0,
-"frame": 170,
-"event": 0,
-"frame": 171,
-"event": 0,
-"frame": 172,
-"event": 0,
-"frame": 173,
-"event": 0,
-"frame": 174,
-"event": 0,
-"frame": 175,
-"event": 0,
-"frame": 176,
-"event": 0,
-"frame": 177,
-"event": 0,
-"frame": 178,
-"event": 1,
-"frame": 179,
-"event": 0,
-"frame": 180,
-"event": 0,
-"frame": 181,
-"event": 0,
-"frame": 182,
-"event": 0,
-"frame": 183,
-"event": 0,
-"frame": 184,
-"event": 0,
-"frame": 185,
-"event": 0,
-"frame": 186,
-"event": 0,
-"frame": 187,
-"event": 0,
-"frame": 188,
-"event": 0,
-"frame": 189,
-"event": 0,
-"frame": 190,
-"event": 0,
-"frame": 191,
-"event": 0,
-"frame": 192,
-"event": 0,
-"frame": 193,
-"event": 0,
-"frame": 194,
-"event": 0,
-"frame": 195,
-"event": 0,
-"frame": 196,
-"event": 0,
-"frame": 197,
-"event": 0,
-"frame": 198,
-"event": 0,
-"frame": 199,
-"event": 0,
-"frame": 200,
-"event": 0,
-"frame": 201,
-"event": 0,
-"frame": 202,
-"event": 0,
-"frame": 203,
-"event": 0,
-"frame": 204,
-"event": 0,
-"frame": 205,
-"event": 0,
-"frame": 206,
-"event": 0,
-"frame": 207,
-"event": 0,
-"frame": 208,
-"event": 0,
-"frame": 209,
-"event": 0,
-"frame": 210,
-"event": 0,
-"frame": 211,
-"event": 1,
-"frame": 212,
-"event": 0,
-"frame": 213,
-"event": 0,
-"frame": 214,
-"event": 0,
-"frame": 215,
-"event": 0,
-"frame": 216,
-"event": 0,
-"frame": 217,
-"event": 0,
-"frame": 218,
-"event": 0,
-"frame": 219,
-"event": 0,
-"frame": 220,
-"event": 0,
-"frame": 221,
-"event": 0,
-"frame": 222,
-"event": 0,
-"frame": 223,
-"event": 0,
-"frame": 224,
-"event": 0,
-"frame": 225,
-"event": 0,
-"frame": 226,
-"event": 0,
-"frame": 227,
-"event": 0,
-"frame": 228,
-"event": 0,
-"frame": 229,
-"event": 0,
-"frame": 230,
-"event": 0,
-"frame": 231,
-"event": 0,
-"frame": 232,
-"event": 0,
-"frame": 233,
-"event": 1,
-"frame": 234,
-"event": 0,
-"frame": 235,
-"event": 0,
-"frame": 236,
-"event": 0,
-"frame": 237,
-"event": 0,
-"frame": 238,
-"event": 0,
-"frame": 239,
-"event": 0,
-"frame": 240,
-"event": 0,
-"frame": 241,
-"event": 0,
-"frame": 242,
-"event": 0,
-"frame": 243,
-"event": 0,
-"frame": 244,
-"event": 0,
-"frame": 245,
-"event": 0,
-"frame": 246,
-"event": 0,
-"frame": 247,
-"event": 0,
-"frame": 248,
-"event": 0,
-"frame": 249,
-"event": 0,
-"frame": 250,
-"event": 0,
-"frame": 251,
-"event": 0,
-"frame": 252,
-"event": 0,
-"frame": 253,
-"event": 0,
-"frame": 254,
-"event": 0,
-"frame": 255,
-"event": 0,
-"frame": 256,
-"event": 0,
-"frame": 257,
-"event": 0,
-"frame": 258,
-"event": 0,
-"frame": 259,
-"event": 0,
-"frame": 260,
-"event": 0,
-"frame": 261,
-"event": 0,
-"frame": 262,
-"event": 1,
-"frame": 263,
-"event": 0,
-"frame": 264,
-"event": 0,
-"frame": 265,
-"event": 0,
-"frame": 266,
-"event": 0,
-"frame": 267,
-"event": 0,
-"frame": 268,
-"event": 0,
-"frame": 269,
-"event": 0,
-"frame": 270,
-"event": 0,
-"frame": 271,
-"event": 0,
-"frame": 272,
-"event": 0,
-"frame": 273,
-"event": 1,
-"frame": 274,
-"event": 0,
-"frame": 275,
-"event": 0,
-"frame": 276,
-"event": 0,
-"frame": 277,
-"event": 0,
-"frame": 278,
-"event": 0,
-"frame": 279,
-"event": 0,
-"frame": 280,
-"event": 0,
-"frame": 281,
-"event": 0,
-"frame": 282,
-"event": 0,
-"frame": 283,
-"event": 0,
-"frame": 284,
-"event": 0,
-"frame": 285,
-"event": 0,
-"frame": 286,
-"event": 0,
-"frame": 287,
-"event": 0,
-"frame": 288,
-"event": 0,
-"frame": 289,
-"event": 0,
-"frame": 290,
-"event": 0,
-"frame": 291,
-"event": 0,
-"frame": 292,
-"event": 1,
-"frame": 293,
-"event": 0,
-"frame": 294,
-"event": 0,
-"frame": 295,
-"event": 0,
-"frame": 296,
-"event": 0,
-"frame": 297,
-"event": 0,
-"frame": 298,
-"event": 0,
-"frame": 299,
-"event": 0,
-"frame": 300,
-"event": 0,
-"frame": 301,
-"event": 1,
-"frame": 302,
-"event": 0,
-"frame": 303,
-"event": 0,
-"frame": 304,
-"event": 0,
-"frame": 305,
-"event": 0,
-"frame": 306,
-"event": 0,
-"frame": 307,
-"event": 0,
-"frame": 308,
-"event": 0,
-"frame": 309,
-"event": 0,
-"frame": 310,
-"event": 0,
-"frame": 311,
-"event": 0,
-"frame": 312,
-"event": 0,
-"frame": 313,
-"event": 0,
-"frame": 314,
-"event": 0,
-"frame": 315,
-"event": 0,
-"frame": 316,
-"event": 0,
-"frame": 317,
-"event": 0,
-"frame": 318,
-"event": 0,
-"frame": 319,
-"event": 0,
-"frame": 320,
-"event": 0,
-"frame": 321,
-"event": 0,
-"frame": 322,
-"event": 0,
-"frame": 323,
-"event": 0,
-"frame": 324,
-"event": 0,
-"frame": 325,
-"event": 0,
-"frame": 326,
-"event": 0,
-"frame": 327,
-"event": 0,
-"frame": 328,
-"event": 0,
-"frame": 329,
-"event": 0,
-"frame": 330,
-"event": 0,
-"frame": 331,
-"event": 0,
-"frame": 332,
-"event": 0,
-"frame": 333,
-"event": 0,
-"frame": 334,
-"event": 0,
-"frame": 335,
-"event": 0,
-"frame": 336,
-"event": 0,
-"frame": 337,
-"event": 1,
-"frame": 338,
-"event": 0,
-"frame": 339,
-"event": 0,
-"frame": 340,
-"event": 0,
-"frame": 341,
-"event": 0,
-"frame": 342,
-"event": 0,
-"frame": 343,
-"event": 0,
-"frame": 344,
-"event": 0,
-"frame": 345,
-"event": 0,
-"frame": 346,
-"event": 0,
-"frame": 347,
-"event": 0,
-"frame": 348,
-"event": 0,
-"frame": 349,
-"event": 0,
-"frame": 350,
-"event": 0,
-"frame": 351,
-"event": 0,
-"frame": 352,
-"event": 0,
-"frame": 353,
-"event": 0,
-"frame": 354,
-"event": 0,
-"frame": 355,
-"event": 0,
-"frame": 356,
-"event": 0,
-"frame": 357,
-"event": 0,
-"frame": 358,
-"event": 0,
-"frame": 359,
-"event": 0,
-"frame": 360,
-"event": 0,
-"frame": 361,
-"event": 0,
-"frame": 362,
-"event": 0,
-"frame": 363,
-"event": 1,
-"frame": 364,
-"event": 0,
-"frame": 365,
-"event": 0,
-"frame": 366,
-"event": 0,
-"frame": 367,
-"event": 0,
-"frame": 368,
-"event": 0,
-"frame": 369,
-"event": 0,
-"frame": 370,
-"event": 0,
-"frame": 371,
-"event": 0,
-"frame": 372,
-"event": 0,
-"frame": 373,
-"event": 0,
-"frame": 374,
-"event": 0,
-"frame": 375,
-"event": 0,
-"frame": 376,
-"event": 0,
-"frame": 377,
-"event": 0,
-"frame": 378,
-"event": 0,
-"frame": 379,
-"event": 0,
-"frame": 380,
-"event": 0,
-"frame": 381,
-"event": 0,
-"frame": 382,
-"event": 0,
-"frame": 383,
-"event": 0,
-"frame": 384,
-"event": 0,
-"frame": 385,
-"event": 0,
-"frame": 386,
-"event": 0,
-"frame": 387,
-"event": 0,
-"frame": 388,
-"event": 0,
-"frame": 389,
-"event": 0,
-"frame": 390,
-"event": 0,
-"frame": 391,
-"event": 0,
-"frame": 392,
-"event": 0,
-"frame": 393,
-"event": 0,
-"frame": 394,
-"event": 0,
-"frame": 395,
-"event": 0,
-"frame": 396,
-"event": 0,
-"frame": 397,
-"event": 1,
-"frame": 398,
-"event": 0,
-"frame": 399,
-"event": 0,
-"frame": 400,
-"event": 0,
-"frame": 401,
-"event": 0,
-"frame": 402,
-"event": 0,
-"frame": 403,
-"event": 0,
-"frame": 404,
-"event": 0,
-"frame": 405,
-"event": 0,
-"frame": 406,
-"event": 0,
-"frame": 407,
-"event": 0,
-"frame": 408,
-"event": 0,
-"frame": 409,
-"event": 0,
-"frame": 410,
-"event": 0,
-"frame": 411,
-"event": 0,
-"frame": 412,
-"event": 0,
-"frame": 413,
-"event": 0,
-"frame": 414,
-"event": 0,
-"frame": 415,
-"event": 0,
-"frame": 416,
-"event": 0,
-"frame": 417,
-"event": 0,
-"frame": 418,
-"event": 0,
-"frame": 419,
-"event": 0,
-"frame": 420,
-"event": 0,
-"frame": 421,
-"event": 0,
-"frame": 422,
-"event": 0,
-"frame": 423,
-"event": 0,
-"frame": 424,
-"event": 1,
-"frame": 425,
-"event": 0,
-"frame": 426,
-"event": 0,
-"frame": 427,
-"event": 0,
-"frame": 428,
-"event": 0,
-"frame": 429,
-"event": 0,
-"frame": 430,
-"event": 0,
-"frame": 431,
-"event": 0,
-"frame": 432,
-"event": 0,
-"frame": 433,
-"event": 0,
-"frame": 434,
-"event": 0,
-"frame": 435,
-"event": 0,
-"frame": 436,
-"event": 0,
-"frame": 437,
-"event": 0,
-"frame": 438,
-"event": 0,
-"frame": 439,
-"event": 0,
-"frame": 440,
-"event": 0,
-"frame": 441,
-"event": 0,
-"frame": 442,
-"event": 0,
-"frame": 443,
-"event": 0,
-"frame": 444,
-"event": 0,
-"frame": 445,
-"event": 0,
-"frame": 446,
-"event": 0,
-"frame": 447,
-"event": 0,
-"frame": 448,
-"event": 0,
-"frame": 449,
-"event": 0,
-"frame": 450,
-"event": 0,
-"frame": 451,
-"event": 0,
-"frame": 452,
-"event": 0,
-"frame": 453,
-"event": 0,
-"frame": 454,
-"event": 0,
-"frame": 455,
-"event": 0,
-"frame": 456,
-"event": 0,
-"frame": 457,
-"event": 0,
-"frame": 458,
-"event": 0,
-"frame": 459,
-"event": 0,
-"frame": 460,
-"event": 0,
-"frame": 461,
-"event": 0,
-"frame": 462,
-"event": 0,
-"frame": 463,
-"event": 0,
-"frame": 464,
-"event": 0,
-"frame": 465,
-"event": 0,
-"frame": 466,
-"event": 0,
-"frame": 467,
-"event": 0,
-"frame": 468,
-"event": 0,
-"frame": 469,
-"event": 0,
-"frame": 470,
-"event": 0,
-"frame": 471,
-"event": 0,
-"frame": 472,
-"event": 0,
-"frame": 473,
-"event": 0,
-"frame": 474,
-"event": 0,
-"frame": 475,
-"event": 0,
-"frame": 476,
-"event": 0,
-"frame": 477,
-"event": 0,
-"frame": 478,
-"event": 0,
-"frame": 479,
-"event": 0,
-"frame": 480,
-"event": 0,
-"frame": 481,
-"event": 0,
-"frame": 482,
-"event": 0,
-"frame": 483,
-"event": 0,
-"frame": 484,
-"event": 1,
-"frame": 485,
-"event": 0,
-"frame": 486,
-"event": 0,
-"frame": 487,
-"event": 0,
-"frame": 488,
-"event": 0,
-"frame": 489,
-"event": 0,
-"frame": 490,
-"event": 0,
-"frame": 491,
-"event": 0,
-"frame": 492,
-"event": 0,
-"frame": 493,
-"event": 0,
-"frame": 494,
-"event": 0,
-"frame": 495,
-"event": 0,
-"frame": 496,
-"event": 0,
-"frame": 497,
-"event": 0,
-"frame": 498,
-"event": 0,
-"frame": 499,
-"event": 0,
-"frame": 500,
-"event": 0,
-"frame": 501,
-"event": 0,
-"frame": 502,
-"event": 0,
-"frame": 503,
-"event": 0,
-"frame": 504,
-"event": 0,
-"frame": 505,
-"event": 0,
-"frame": 506,
-"event": 0,
-"frame": 507,
-"event": 0,
-"frame": 508,
-"event": 0,
-"frame": 509,
-"event": 1,
-"frame": 510,
-"event": 0,
-"frame": 511,
-"event": 0,
-"frame": 512,
-"event": 0,
-"frame": 513,
-"event": 0,
-"frame": 514,
-"event": 0,
-"frame": 515,
-"event": 0,
-"frame": 516,
-"event": 0,
-"frame": 517,
-"event": 0,
-"frame": 518,
-"event": 0,
-"frame": 519,
-"event": 0,
-"frame": 520,
-"event": 0,
-"frame": 521,
-"event": 0,
-"frame": 522,
-"event": 0,
-"frame": 523,
-"event": 0,
-"frame": 524,
-"event": 0,
-"frame": 525,
-"event": 0,
-"frame": 526,
-"event": 0
+"1": 0,
+"2": 0,
+"3": 0,
+"4": 0,
+"5": 0,
+"6": 0,
+"7": 0,
+"8": 0,
+"9": 0,
+"10": 0,
+"11": 0,
+"12": 0,
+"13": 0,
+"14": 0,
+"15": 0,
+"16": 0,
+"17": 0,
+"18": 1,
+"19": 0,
+"20": 0,
+"21": 0,
+"22": 0,
+"23": 0,
+"24": 0,
+"25": 0,
+"26": 0,
+"27": 0,
+"28": 0,
+"29": 0,
+"30": 0,
+"31": 0,
+"32": 0,
+"33": 0,
+"34": 0,
+"35": 0,
+"36": 0,
+"37": 0,
+"38": 0,
+"39": 0,
+"40": 0,
+"41": 0,
+"42": 0,
+"43": 0,
+"44": 0,
+"45": 1,
+"46": 0,
+"47": 0,
+"48": 0,
+"49": 0,
+"50": 0,
+"51": 0,
+"52": 0,
+"53": 0,
+"54": 0,
+"55": 0,
+"56": 0,
+"57": 0,
+"58": 0,
+"59": 0,
+"60": 0,
+"61": 1,
+"62": 0,
+"63": 0,
+"64": 0,
+"65": 0,
+"66": 0,
+"67": 0,
+"68": 0,
+"69": 0,
+"70": 0,
+"71": 0,
+"72": 0,
+"73": 1,
+"74": 0,
+"75": 0,
+"76": 0,
+"77": 0,
+"78": 0,
+"79": 0,
+"80": 0,
+"81": 0,
+"82": 0,
+"83": 0,
+"84": 0,
+"85": 0,
+"86": 0,
+"87": 0,
+"88": 0,
+"89": 0,
+"90": 0,
+"91": 0,
+"92": 0,
+"93": 0,
+"94": 0,
+"95": 0,
+"96": 0,
+"97": 0,
+"98": 0,
+"99": 0,
+"100": 0,
+"101": 0,
+"102": 0,
+"103": 0,
+"104": 0,
+"105": 0,
+"106": 0,
+"107": 0,
+"108": 0,
+"109": 0,
+"110": 0,
+"111": 0,
+"112": 0,
+"113": 0,
+"114": 0,
+"115": 0,
+"116": 0,
+"117": 0,
+"118": 0,
+"119": 0,
+"120": 0,
+"121": 0,
+"122": 1,
+"123": 0,
+"124": 0,
+"125": 0,
+"126": 0,
+"127": 0,
+"128": 0,
+"129": 0,
+"130": 0,
+"131": 0,
+"132": 0,
+"133": 0,
+"134": 0,
+"135": 0,
+"136": 0,
+"137": 0,
+"138": 0,
+"139": 0,
+"140": 0,
+"141": 0,
+"142": 0,
+"143": 0,
+"144": 0,
+"145": 0,
+"146": 0,
+"147": 0,
+"148": 0,
+"149": 0,
+"150": 0,
+"151": 0,
+"152": 0,
+"153": 0,
+"154": 0,
+"155": 0,
+"156": 0,
+"157": 0,
+"158": 0,
+"159": 0,
+"160": 1,
+"161": 0,
+"162": 0,
+"163": 0,
+"164": 0,
+"165": 0,
+"166": 0,
+"167": 0,
+"168": 0,
+"169": 0,
+"170": 0,
+"171": 0,
+"172": 0,
+"173": 0,
+"174": 0,
+"175": 0,
+"176": 0,
+"177": 0,
+"178": 1,
+"179": 0,
+"180": 0,
+"181": 0,
+"182": 0,
+"183": 0,
+"184": 0,
+"185": 0,
+"186": 0,
+"187": 0,
+"188": 0,
+"189": 0,
+"190": 0,
+"191": 0,
+"192": 0,
+"193": 0,
+"194": 0,
+"195": 0,
+"196": 0,
+"197": 0,
+"198": 0,
+"199": 0,
+"200": 0,
+"201": 0,
+"202": 0,
+"203": 0,
+"204": 0,
+"205": 0,
+"206": 0,
+"207": 0,
+"208": 0,
+"209": 0,
+"210": 0,
+"211": 1,
+"212": 0,
+"213": 0,
+"214": 0,
+"215": 0,
+"216": 0,
+"217": 0,
+"218": 0,
+"219": 0,
+"220": 0,
+"221": 0,
+"222": 0,
+"223": 0,
+"224": 0,
+"225": 0,
+"226": 0,
+"227": 0,
+"228": 0,
+"229": 0,
+"230": 0,
+"231": 0,
+"232": 0,
+"233": 1,
+"234": 0,
+"235": 0,
+"236": 0,
+"237": 0,
+"238": 0,
+"239": 0,
+"240": 0,
+"241": 0,
+"242": 0,
+"243": 0,
+"244": 0,
+"245": 0,
+"246": 0,
+"247": 0,
+"248": 0,
+"249": 0,
+"250": 0,
+"251": 0,
+"252": 0,
+"253": 0,
+"254": 0,
+"255": 0,
+"256": 0,
+"257": 0,
+"258": 0,
+"259": 0,
+"260": 0,
+"261": 0,
+"262": 1,
+"263": 0,
+"264": 0,
+"265": 0,
+"266": 0,
+"267": 0,
+"268": 0,
+"269": 0,
+"270": 0,
+"271": 0,
+"272": 0,
+"273": 1,
+"274": 0,
+"275": 0,
+"276": 0,
+"277": 0,
+"278": 0,
+"279": 0,
+"280": 0,
+"281": 0,
+"282": 0,
+"283": 0,
+"284": 0,
+"285": 0,
+"286": 0,
+"287": 0,
+"288": 0,
+"289": 0,
+"290": 0,
+"291": 0,
+"292": 1,
+"293": 0,
+"294": 0,
+"295": 0,
+"296": 0,
+"297": 0,
+"298": 0,
+"299": 0,
+"300": 0,
+"301": 1,
+"302": 0,
+"303": 0,
+"304": 0,
+"305": 0,
+"306": 0,
+"307": 0,
+"308": 0,
+"309": 0,
+"310": 0,
+"311": 0,
+"312": 0,
+"313": 0,
+"314": 0,
+"315": 0,
+"316": 0,
+"317": 0,
+"318": 0,
+"319": 0,
+"320": 0,
+"321": 0,
+"322": 0,
+"323": 0,
+"324": 0,
+"325": 0,
+"326": 0,
+"327": 0,
+"328": 0,
+"329": 0,
+"330": 0,
+"331": 0,
+"332": 0,
+"333": 0,
+"334": 0,
+"335": 0,
+"336": 0,
+"337": 1,
+"338": 0,
+"339": 0,
+"340": 0,
+"341": 0,
+"342": 0,
+"343": 0,
+"344": 0,
+"345": 0,
+"346": 0,
+"347": 0,
+"348": 0,
+"349": 0,
+"350": 0,
+"351": 0,
+"352": 0,
+"353": 0,
+"354": 0,
+"355": 0,
+"356": 0,
+"357": 0,
+"358": 0,
+"359": 0,
+"360": 0,
+"361": 0,
+"362": 0,
+"363": 1,
+"364": 0,
+"365": 0,
+"366": 0,
+"367": 0,
+"368": 0,
+"369": 0,
+"370": 0,
+"371": 0,
+"372": 0,
+"373": 0,
+"374": 0,
+"375": 0,
+"376": 0,
+"377": 0,
+"378": 0,
+"379": 0,
+"380": 0,
+"381": 0,
+"382": 0,
+"383": 0,
+"384": 0,
+"385": 0,
+"386": 0,
+"387": 0,
+"388": 0,
+"389": 0,
+"390": 0,
+"391": 0,
+"392": 0,
+"393": 0,
+"394": 0,
+"395": 0,
+"396": 0,
+"397": 1,
+"398": 0,
+"399": 0,
+"400": 0,
+"401": 0,
+"402": 0,
+"403": 0,
+"404": 0,
+"405": 0,
+"406": 0,
+"407": 0,
+"408": 0,
+"409": 0,
+"410": 0,
+"411": 0,
+"412": 0,
+"413": 0,
+"414": 0,
+"415": 0,
+"416": 0,
+"417": 0,
+"418": 0,
+"419": 0,
+"420": 0,
+"421": 0,
+"422": 0,
+"423": 0,
+"424": 1,
+"425": 0,
+"426": 0,
+"427": 0,
+"428": 0,
+"429": 0,
+"430": 0,
+"431": 0,
+"432": 0,
+"433": 0,
+"434": 0,
+"435": 0,
+"436": 0,
+"437": 0,
+"438": 0,
+"439": 0,
+"440": 0,
+"441": 0,
+"442": 0,
+"443": 0,
+"444": 0,
+"445": 0,
+"446": 0,
+"447": 0,
+"448": 0,
+"449": 0,
+"450": 0,
+"451": 0,
+"452": 0,
+"453": 0,
+"454": 0,
+"455": 0,
+"456": 0,
+"457": 0,
+"458": 0,
+"459": 0,
+"460": 0,
+"461": 0,
+"462": 0,
+"463": 0,
+"464": 0,
+"465": 0,
+"466": 0,
+"467": 0,
+"468": 0,
+"469": 0,
+"470": 0,
+"471": 0,
+"472": 0,
+"473": 0,
+"474": 0,
+"475": 0,
+"476": 0,
+"477": 0,
+"478": 0,
+"479": 0,
+"480": 0,
+"481": 0,
+"482": 0,
+"483": 0,
+"484": 1,
+"485": 0,
+"486": 0,
+"487": 0,
+"488": 0,
+"489": 0,
+"490": 0,
+"491": 0,
+"492": 0,
+"493": 0,
+"494": 0,
+"495": 0,
+"496": 0,
+"497": 0,
+"498": 0,
+"499": 0,
+"500": 0,
+"501": 0,
+"502": 0,
+"503": 0,
+"504": 0,
+"505": 0,
+"506": 0,
+"507": 0,
+"508": 0,
+"509": 1,
+"510": 0,
+"511": 0,
+"512": 0,
+"513": 0,
+"514": 0,
+"515": 0,
+"516": 0,
+"517": 0,
+"518": 0,
+"519": 0,
+"520": 0,
+"521": 0,
+"522": 0,
+"523": 0,
+"524": 0,
+"525": 0,
+"526": 0
 }

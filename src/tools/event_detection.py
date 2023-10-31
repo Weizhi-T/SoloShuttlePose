@@ -85,6 +85,12 @@ def event_detect(json_path, result_path):
         else:
             count += 1
 
+    # some video don't have badminton location information
+    if num == 0:
+        print("There is not any hitting event in this video!")
+        print()
+        return
+
     # 羽球2D軌跡點
     points = np.array(points)
     x, y, z = points.T
@@ -167,7 +173,7 @@ def event_detect(json_path, result_path):
     print()
     print(f'End : {list(final_predict)[-1]+ start_frame}')
 
-    folder_name = json_name.split('_')[0]
+    folder_name, start_frame = extract_numbers(json_name)
     event_path = os.path.join(result_path, f"event/{folder_name}")
     img_path = os.path.join(result_path, f"traj2img/{folder_name}")
     os.makedirs(event_path, exist_ok=True)

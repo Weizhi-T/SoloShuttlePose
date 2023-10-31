@@ -177,15 +177,14 @@ def ball_detect(video_path, result_path):
             count += 1
             pbar.update(1)
 
-        # denoise file save path
-        dd_save_dir = os.path.join(result_path,
-                                   f"loca_info(denoise)/{orivi_name}")
-        os.makedirs(dd_save_dir, exist_ok=True)
+    # denoise file save path
+    dd_save_dir = os.path.join(result_path, f"loca_info(denoise)/{orivi_name}")
+    os.makedirs(dd_save_dir, exist_ok=True)
 
-        json_path = f"{d_save_dir}/{video_name}.json"
-        smooth(json_path, dd_save_dir)
+    json_path = f"{d_save_dir}/{video_name}.json"
+    smooth(json_path, dd_save_dir)
 
-        dd_json_path = f"{dd_save_dir}/{video_name}.json"
-        event_detect(dd_json_path, f"{result_path}")
-        # out.release()
-        vid_cap.release()
+    dd_json_path = f"{dd_save_dir}/{video_name}.json"
+    event_detect(dd_json_path, f"{result_path}")
+    # out.release()
+    vid_cap.release()

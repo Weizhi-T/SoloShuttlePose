@@ -198,14 +198,17 @@ for root, dirs, files in os.walk(folder_path):
             # Release the video capture and writer objects
             video.release()
 
-            # tracknet
-            print("-" * 10 + "Starting Ball Detection" + "-" * 10)
-            for res_root, res_dirs, res_files in os.walk(
-                    f"{result_path}/videos/{video_name}"):
-                for res_file in res_files:
-                    _, ext = os.path.splitext(res_file)
-                    if ext.lower() in ['.mp4']:
-                        res_video_path = os.path.join(res_root, res_file)
-                        print(res_video_path)
-                        ball_detect(res_video_path, f"{result_path}/ball")
-            print("-" * 10 + "End Badminton Detection" + "-" * 10)
+            try:
+                # tracknet
+                print("-" * 10 + "Starting Ball Detection" + "-" * 10)
+                for res_root, res_dirs, res_files in os.walk(
+                        f"{result_path}/videos/{video_name}"):
+                    for res_file in res_files:
+                        _, ext = os.path.splitext(res_file)
+                        if ext.lower() in ['.mp4']:
+                            res_video_path = os.path.join(res_root, res_file)
+                            print(res_video_path)
+                            ball_detect(res_video_path, f"{result_path}/ball")
+                print("-" * 10 + "End Badminton Detection" + "-" * 10)
+            except Exception as e:
+                print("There are some errors on ball_detect function!")

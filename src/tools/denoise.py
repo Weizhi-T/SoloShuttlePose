@@ -60,14 +60,16 @@ def smooth(json_path, save_path="res/ball/loca_info(denoise)"):
                     abnormal[i:i + 2] = ['bias2', 'bias2']
                     X_abn[i:i + 2] = [0, 0]
                     y_abn[i:i + 2] = [0, 0]
-        elif pre_dif[i] >= 100 and pre_dif[i + 3] >= 100:
+        elif i + 4 < len(pre_dif) and pre_dif[i] >= 100 and pre_dif[i +
+                                                                    3] >= 100:
             if pre_dif[i + 1] < dif_error and pre_dif[i + 2] < dif_error:
                 if vis[i:i + 4] == [1, 1, 1,
                                     1]:  # and series[i:i+4] == [1,1,1,1]:
                     abnormal[i:i + 3] = ['bias3', 'bias3', 'bias3']
                     X_abn[i:i + 3] = [0, 0, 0]
                     y_abn[i:i + 3] = [0, 0, 0]
-        elif pre_dif[i] >= 100 and pre_dif[i + 4] >= 100:
+        elif i + 5 < len(pre_dif) and pre_dif[i] >= 100 and pre_dif[i +
+                                                                    4] >= 100:
             if pre_dif[i + 1] < dif_error and pre_dif[
                     i + 2] < dif_error and pre_dif[i + 3] < dif_error:
                 if vis[i:i + 5] == [1, 1, 1, 1,
@@ -651,14 +653,15 @@ def smooth(json_path, save_path="res/ball/loca_info(denoise)"):
     df['y'] = mis5_y
 
     for index, row in df.iterrows():
-        frame = row["frame"]
-        visible = row["visible"]
-        x = row["x"]
-        y = row["y"]
+        # the transfrom is to avoid int68 which leads to json something wrong
+        frame = str(int(row["frame"]))
+        visible = int(row["visible"])
+        x = int(row["x"])
+        y = int(row["y"])
         # do something with the values
         ball_dict = {
-            f"{int(frame)}": {
-                "visible": int(visible),
+            frame: {
+                "visible": visible,
                 "x": x,
                 "y": y,
             }

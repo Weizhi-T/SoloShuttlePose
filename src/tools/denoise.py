@@ -2,10 +2,14 @@ import pandas as pd
 import numpy as np
 import os
 import sys
+
+# sys.path.append("src/tools")
+# from utils import read_json, write_json
+
 from src.tools.utils import read_json, write_json
 
 
-def smooth(json_path, save_path):
+def smooth(json_path, save_path="res/ball/loca_info(denoise)"):
     #path = '41_predict.csv'
     json_name = os.path.splitext(os.path.basename(json_path))[0]
 
@@ -20,7 +24,7 @@ def smooth(json_path, save_path):
         df_ls.append(fvxy_ditc)
     df = pd.DataFrame(df_ls)
     df = df.fillna(0)
-
+    # df.to_csv("A.csv")
     x = df['x'].tolist()
     y = df['y'].tolist()
     vis = df['visible'].tolist()
@@ -141,24 +145,28 @@ def smooth(json_path, save_path):
                 x_test_2nd[i] = 0
                 y_test_2nd[i] = 0
                 abnormal2[i] = '2bias1'
-            elif bf_dis[i + 1] > 30 and vis2[i + 1] == 1:
+            elif i+2<len(df) and bf_dis[i + 1] > 30 \
+                and vis2[i + 1] == 1:
                 if af_dis[i + 1] < 30:
                     x_test_2nd[i:i + 2] = [0, 0]
                     y_test_2nd[i:i + 2] = [0, 0]
                     abnormal2[i:i + 2] = ['2bias2', '2bias2']
-            elif bf_dis[i + 2] > 30 and vis2[i + 1:i + 3] == [1, 1]:
+            elif i+3<len(df) and bf_dis[i + 2] > 30 \
+                and vis2[i + 1:i + 3] == [1, 1]:
                 if af_dis[i + 1] < 30 and af_dis[i + 2] < 30:
                     x_test_2nd[i:i + 3] = [0, 0, 0]
                     y_test_2nd[i:i + 3] = [0, 0, 0]
                     abnormal2[i:i + 3] = ['2bias3', '2bias3', '2bias3']
-            elif bf_dis[i + 3] > 30 and vis2[i + 1:i + 4] == [1, 1, 1]:
+            elif i+4<len(df) and bf_dis[i + 3] > 30 \
+                and vis2[i + 1:i + 4] == [1, 1, 1]:
                 if af_dis[i + 1] < 30 and af_dis[i + 2] < 30 and af_dis[
                         i + 3] < 30:
                     x_test_2nd[i:i + 4] = [0, 0, 0, 0]
                     y_test_2nd[i:i + 4] = [0, 0, 0, 0]
                     abnormal2[i:i +
                               4] = ['2bias4', '2bias4', '2bias4', '2bias4']
-            elif bf_dis[i + 4] > 30 and vis2[i + 1:i + 5] == [1, 1, 1, 1]:
+            elif i+5<len(df) and bf_dis[i + 4] > 30\
+                and vis2[i + 1:i + 5] == [1, 1, 1, 1]:
                 if af_dis[i + 1] < 30 and af_dis[i + 2] < 30 and af_dis[
                         i + 3] < 30 and af_dis[i + 4] < 30:
                     x_test_2nd[i:i + 5] = [0, 0, 0, 0, 0]
@@ -166,7 +174,8 @@ def smooth(json_path, save_path):
                     abnormal2[i:i + 5] = [
                         '2bias5', '2bias5', '2bias5', '2bias5', '2bias5'
                     ]
-            elif bf_dis[i + 5] > 30 and vis2[i + 1:i + 6] == [1, 1, 1, 1, 1]:
+            elif i+6<len(df) and bf_dis[i + 5] > 30\
+                and vis2[i + 1:i + 6] == [1, 1, 1, 1, 1]:
                 if af_dis[i + 1] < 30 and af_dis[i + 2] < 30 and af_dis[
                         i + 3] < 30 and af_dis[i + 4] < 30 and af_dis[i +
                                                                       5] < 30:

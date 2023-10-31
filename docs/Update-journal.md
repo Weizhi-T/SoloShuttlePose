@@ -82,3 +82,5 @@
 2023/10/31：
 
     Fix "utils.find_references" bugs and make the "FrameSelect.py" easier to use. Now can Adaptive display.
+
+    Fix the list index out of range in denoise.py. 

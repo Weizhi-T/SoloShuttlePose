@@ -78,3 +78,7 @@
 2023/10/30:
 
     Add yt-dlp shell script for ShullteSet dataset video downloads. 
+
+2023/10/31：
+
+    Fix "utils.find_references" bugs and make the "FrameSelect.py" easier to use. Now can Adaptive display.

@@ -4,13 +4,7 @@
 directory="./videos_bd"
 
 source "D://Users//86153//anaconda3//etc//profile.d//conda.sh"
-conda activate tracknetv3
-
-# Verify that the yt-dlp command is installed.
-if ! command -v yt-dlp &> /dev/null; then
-    echo "yt-dlp command not found. Please install yt-dlp to continue."
-    exit 1
-fi
+conda activate SoloShuttlePose
 
 # Iterates through all subdirectories of the specified directory
 for dir in "$directory"/*; do

@@ -96,7 +96,8 @@ def find_reference(video_name, save_path="references"):
 
     for root, dirs, files in os.walk(save_path):
         for file in files:
-            file_name = file.split('.')[0].split('_')[0]
+            # file_name = file.split('.')[0].split('_')[0]
+            file_name = file.split('.')[0]
             if video_name == file_name:
                 file_path = os.path.join(root, file)
                 return file_path

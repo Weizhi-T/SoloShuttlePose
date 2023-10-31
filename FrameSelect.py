@@ -12,6 +12,23 @@ from src.models.NetDetect import NetDetect
 import argparse
 
 
+def on_closing():
+    # Handle window close events
+    # Here you can close the window or perform other actions
+    global user_choice
+    user_choice = False
+    small_window.destroy()
+
+
+def on_keypress(event):
+    # Handle key events
+    global user_choice
+    if event.keysym == 'Escape':
+        # If the ESC key was pressed, close the window or perform another action
+        user_choice = False
+        small_window.destroy()
+
+
 def yes_button_click():
     global user_choice
     user_choice = True
@@ -29,6 +46,7 @@ def no_button_click():
 def update_image():
     # Read video frames
     global frame, frame_counter, video_name, court_info, net_info
+    global new_height, new_width
     print(f"for {video_name}, current frame is {frame_counter}")
     ret, frame = video.read()
 
@@ -36,9 +54,10 @@ def update_image():
         # Video readout complete.
         return
     frame = frame.astype('uint8')
-    h, w = 400, 500
+    h, w = new_height, new_width
+
     # Resize an image to a specified size
-    frame_resized = cv2.resize(frame.copy(), (h, w))
+    frame_resized = cv2.resize(frame.copy(), (w, h))
     # Converting OpenCV images to PIL images
     frame_pil = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
     frame_pil = Image.fromarray(frame_pil)
@@ -64,7 +83,7 @@ def update_image():
             net_frame = net_detect.draw_net(court_frame, "frame_select")
             frame_copy = pose_detect.draw_key_points(players_joints, net_frame)
 
-    frame_processed = cv2.resize(frame_copy, (h, w))
+    frame_processed = cv2.resize(frame_copy, (w, h))
     frame_processed_pil = cv2.cvtColor(frame_processed, cv2.COLOR_BGR2RGB)
     frame_processed_pil = Image.fromarray(frame_processed_pil)
     frame_tk2 = ImageTk.PhotoImage(frame_processed_pil)
@@ -146,6 +165,9 @@ user_choice = True
 court_info = None
 net_info = None
 
+new_width = 1280
+new_height = 720
+
 for root, dirs, files in os.walk(folder_path):
     for file in files:
         _, ext = os.path.splitext(file)
@@ -160,7 +182,13 @@ for root, dirs, files in os.walk(folder_path):
                 # Create a window
                 small_window = tk.Tk()
                 small_window.title("delete file")
-                small_window.geometry("300x100")
+                small_window.state('zoomed')
+
+                small_window.protocol("WM_DELETE_WINDOW",
+                                      on_closing)  # 将关闭事件连接到处理函数上
+
+                # 将按键事件绑定到处理函数上
+                small_window.bind('<Key>', on_keypress)
 
                 # Display the name of the file
                 label = tk.Label(small_window,
@@ -187,6 +215,10 @@ for root, dirs, files in os.walk(folder_path):
 
             # Open the video file
             video = cv2.VideoCapture(video_path)
+
+            frame_height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
+            frame_width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
+
             total_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
             # Save current frame counter
             frame_counter = total_frames // 2
@@ -199,9 +231,17 @@ for root, dirs, files in os.walk(folder_path):
 
             # Create a window
             window = tk.Tk()
-            window.title(f"{video_name}")
-            window.geometry("800x600+200+100")
 
+            # screen_width = window.winfo_screenwidth()
+            # screen_height = window.winfo_screenheight()
+            width_ratio = 0.35
+            height_ratio = 0.35
+            new_width = int(frame_width * width_ratio)
+            new_height = int(frame_height * height_ratio)
+
+            window.title(f"{video_name}")
+            # window.geometry("800x600+200+100")
+            window.state('zoomed')
             # Create left side image labels
             image_label1 = tk.Label(window)
             image_label1.pack(side="left")

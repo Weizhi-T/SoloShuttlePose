@@ -9,14 +9,14 @@ import pandas as pd
 
 
 def extract_numbers(filename):
-    pattern = r"\w+_(\d+)-(\d+)"
+    pattern = r"(\w+)_(\d+)-\d+"
     match = re.match(pattern, filename)
     if match:
-        start = int(match.group(1))
-        end = int(match.group(2))
-        return start
+        name = str(match.group(1))
+        start = int(match.group(2))
+        return name, start
     else:
-        return 0
+        return filename, 0
 
 
 def is_file_empty(file_path):

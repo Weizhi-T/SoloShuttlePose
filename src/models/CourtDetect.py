@@ -7,7 +7,12 @@ from PIL import Image
 from torchvision.transforms import transforms
 from torchvision.transforms import functional as F
 import os
-from src.tools.utils import read_json
+import sys
+
+sys.path.append("src/tools")
+sys.path.append("src/models")
+
+from utils import read_json
 
 
 class CourtDetect(object):

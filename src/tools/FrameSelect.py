@@ -4,12 +4,16 @@ import os
 import copy
 import tkinter as tk
 from tkinter import messagebox
-from src.tools.utils import write_json, clear_file, is_video_detect, find_next, find_reference
-from src.tools.VideoClip import VideoClip
-from src.models.PoseDetect import PoseDetect
-from src.models.CourtDetect import CourtDetect
-from src.models.NetDetect import NetDetect
 import argparse
+import sys
+
+sys.path.append("src/tools")
+sys.path.append("src/models")
+from utils import write_json, clear_file, is_video_detect, find_next, find_reference
+from VideoClip import VideoClip
+from PoseDetect import PoseDetect
+from CourtDetect import CourtDetect
+from NetDetect import NetDetect
 
 
 def on_closing():

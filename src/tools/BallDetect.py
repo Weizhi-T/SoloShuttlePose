@@ -7,10 +7,14 @@ import cv2
 import numpy as np
 from pathlib import Path
 from argparse import ArgumentParser
-from src.models.TrackNet import TrackNet
-from src.tools.utils import extract_numbers, write_json, read_json
-from src.tools.denoise import smooth
-from src.tools.event_detection import event_detect
+
+sys.path.append("src/models")
+sys.path.append("src/tools")
+
+from TrackNet import TrackNet
+from utils import extract_numbers, write_json, read_json
+from denoise import smooth
+from event_detection import event_detect
 
 # from yolov5 detect.py
 FILE = Path(__file__).resolve()
@@ -45,8 +49,8 @@ def get_ball_position(img, original_img_=None):
 def ball_detect(video_path, result_path):
     imgsz = [288, 512]
     video_name = os.path.splitext(os.path.basename(video_path))[0]
-    orivi_name = video_name.split('_')[0]
-    start_frame = extract_numbers(video_name)
+
+    orivi_name, start_frame = extract_numbers(video_name)
 
     d_save_dir = os.path.join(result_path, f"loca_info/{orivi_name}")
     f_source = str(video_path)

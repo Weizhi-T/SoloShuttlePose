@@ -15,11 +15,17 @@ conda create --name SoloShuttlePose python=3.9
 pip install 'docs/requirements.txt'
 ```
 
+# Download the youtube BWF video for ShuttleSet
+
+```
+python src/tools/yt-dlp4ShuttleSet.py
+```
+
 
 # If you want to manually select the valid frames, you can run the following code.
 
 ```
-python FrameSelect.py --folder_path "videos"
+python src/tools/FrameSelect.py --folder_path "videos"
 ```
 
 # Run the following code for player, court ,net detect.
@@ -41,12 +47,12 @@ python main.py --folder_path "videos" --result_path "res" --force
 Process only unprocessed video.
 
 ```
-python VideoDraw.py --folder_path "videos" --result_path "res" --court --net --players --ball
+python src/tools/VideoDraw.py --folder_path "videos" --result_path "res" --court --net --players --ball
 ```
 
 Force processing of all videos, including those that have already been processed.
 
 ```
-python VideoDraw.py --folder_path "videos" --result_path "res" --force --court --net --players --ball --trajectory
+python src/tools/VideoDraw.py --folder_path "videos" --result_path "res" --force --court --net --players --ball --trajectory
 ```
 

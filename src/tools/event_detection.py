@@ -7,13 +7,11 @@ from mpl_toolkits.mplot3d import Axes3D
 import math
 from scipy.signal import find_peaks
 import argparse
-from src.tools.utils import read_json, write_json, extract_numbers
 import os
+import sys
 
-# import sys
-
-# sys.path.append("")
-# from utils import read_json, write_json, extract_numbers
+sys.path.append("src/tools")
+from utils import read_json, write_json, extract_numbers
 
 
 def angle(v1, v2):
@@ -57,7 +55,7 @@ def get_point_line_distance(point, line):
 def event_detect(json_path, result_path):
     loca_dict = read_json(json_path)
     json_name = os.path.splitext(os.path.basename(json_path))[0]
-    start_frame = extract_numbers(json_name)
+    _, start_frame = extract_numbers(json_name)
     list1 = []
     points = []
     frames = []

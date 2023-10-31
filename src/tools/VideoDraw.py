@@ -6,14 +6,19 @@ import matplotlib.pyplot as plt
 from torchvision.transforms import transforms
 from torchvision.transforms import functional as F
 import os
-from src.tools.utils import write_json, clear_file, is_video_detect, find_next, find_reference, read_json
-from src.tools.VideoClip import VideoClip
-from src.models.PoseDetect import PoseDetect
-from src.models.CourtDetect import CourtDetect
-from src.models.NetDetect import NetDetect
+import sys
 import argparse
 from collections import deque
 from PIL import Image, ImageDraw
+
+sys.path.append("src/tools")
+sys.path.append("src/models")
+
+from utils import write_json, clear_file, is_video_detect, find_next, find_reference, read_json
+from VideoClip import VideoClip
+from PoseDetect import PoseDetect
+from CourtDetect import CourtDetect
+from NetDetect import NetDetect
 
 parser = argparse.ArgumentParser(description='para transfer')
 parser.add_argument('--folder_path',

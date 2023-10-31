@@ -3,10 +3,8 @@ import numpy as np
 import os
 import sys
 
-# sys.path.append("src/tools")
-# from utils import read_json, write_json
-
-from src.tools.utils import read_json, write_json
+sys.path.append("src/tools")
+from utils import read_json, write_json
 
 
 def smooth(json_path, save_path="res/ball/loca_info(denoise)"):

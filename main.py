@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from torchvision.transforms import transforms
 from torchvision.transforms import functional as F
 import os
-from src.tools.utils import write_json, clear_file, is_video_detect, find_next, find_reference, extract_numbers
+from src.tools.utils import write_json, clear_file, is_video_detect, find_next, find_reference
 from src.tools.VideoClip import VideoClip
 from src.models.PoseDetect import PoseDetect
 from src.models.CourtDetect import CourtDetect

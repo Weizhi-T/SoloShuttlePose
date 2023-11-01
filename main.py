@@ -199,6 +199,7 @@ for root, dirs, files in os.walk(folder_path):
             video.release()
 
             try:
+                # Code block that may raise exceptions
                 # tracknet
                 print("-" * 10 + "Starting Ball Detection" + "-" * 10)
                 for res_root, res_dirs, res_files in os.walk(
@@ -210,5 +211,34 @@ for root, dirs, files in os.walk(folder_path):
                             print(res_video_path)
                             ball_detect(res_video_path, f"{result_path}/ball")
                 print("-" * 10 + "End Badminton Detection" + "-" * 10)
-            except Exception as e:
-                print("There are some errors on ball_detect function!")
+            except KeyboardInterrupt:
+                print("Caught exception type on main.py ball_detect:",
+                      type(KeyboardInterrupt).__name__)
+                exit()
+            except SystemExit:
+                print("Caught exception type on main.py ball_detect:",
+                      type(SystemExit).__name__)
+            except ValueError:
+                print("Caught exception type on main.py ball_detect:",
+                      type(ValueError).__name__)
+            except ZeroDivisionError:
+                print("Caught exception type on main.py ball_detect:",
+                      type(ZeroDivisionError).__name__)
+            except TypeError:
+                print("Caught exception type on main.py ball_detect:",
+                      type(TypeError).__name__)
+            except IndexError:
+                print("Caught exception type on main.py ball_detect:",
+                      type(IndexError).__name__)
+            except FileNotFoundError:
+                print("Caught exception type on main.py ball_detect:",
+                      type(FileNotFoundError).__name__)
+            except IOError:
+                print("Caught exception type on main.py ball_detect:",
+                      type(IOError).__name__)
+            except OSError:
+                print("Caught exception type on main.py ball_detect:",
+                      type(OSError).__name__)
+            except Exception:
+                print("Caught exception type on main.py ball_detect:",
+                      type(Exception).__name__)

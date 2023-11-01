@@ -181,10 +181,77 @@ def ball_detect(video_path, result_path):
     dd_save_dir = os.path.join(result_path, f"loca_info(denoise)/{orivi_name}")
     os.makedirs(dd_save_dir, exist_ok=True)
 
-    json_path = f"{d_save_dir}/{video_name}.json"
-    smooth(json_path, dd_save_dir)
+    try:
+        # Code block that may raise exceptions
+        json_path = f"{d_save_dir}/{video_name}.json"
+        smooth(json_path, dd_save_dir)
+    except KeyboardInterrupt:
+        print("Caught exception type on BallDetect.py smooth:",
+              type(KeyboardInterrupt).__name__)
+        exit()
+    except SystemExit:
+        print("Caught exception type on BallDetect.py smooth:",
+              type(SystemExit).__name__)
+    except ValueError:
+        print("Caught exception type on BallDetect.py smooth:",
+              type(ValueError).__name__)
+    except ZeroDivisionError:
+        print("Caught exception type on BallDetect.py smooth:",
+              type(ZeroDivisionError).__name__)
+    except TypeError:
+        print("Caught exception type on BallDetect.py smooth:",
+              type(TypeError).__name__)
+    except IndexError:
+        print("Caught exception type on BallDetect.py smooth:",
+              type(IndexError).__name__)
+    except FileNotFoundError:
+        print("Caught exception type on BallDetect.py smooth:",
+              type(FileNotFoundError).__name__)
+    except IOError:
+        print("Caught exception type on BallDetect.py smooth:",
+              type(IOError).__name__)
+    except OSError:
+        print("Caught exception type on BallDetect.py smooth:",
+              type(OSError).__name__)
+    except Exception:
+        print("Caught exception type on BallDetect.py smooth:",
+              type(Exception).__name__)
 
-    dd_json_path = f"{dd_save_dir}/{video_name}.json"
-    event_detect(dd_json_path, f"{result_path}")
-    # out.release()
+    try:
+        # Code block that may raise exceptions
+        dd_json_path = f"{dd_save_dir}/{video_name}.json"
+        event_detect(dd_json_path, f"{result_path}")
+        # out.release()
+    except KeyboardInterrupt:
+        print("Caught exception type on BallDetect.py event_detect:",
+              type(KeyboardInterrupt).__name__)
+        exit()
+    except SystemExit:
+        print("Caught exception type on BallDetect.py event_detect:",
+              type(SystemExit).__name__)
+    except ValueError:
+        print("Caught exception type on BallDetect.py event_detect:",
+              type(ValueError).__name__)
+    except ZeroDivisionError:
+        print("Caught exception type on BallDetect.py event_detect:",
+              type(ZeroDivisionError).__name__)
+    except TypeError:
+        print("Caught exception type on BallDetect.py event_detect:",
+              type(TypeError).__name__)
+    except IndexError:
+        print("Caught exception type on BallDetect.py event_detect:",
+              type(IndexError).__name__)
+    except FileNotFoundError:
+        print("Caught exception type on BallDetect.py event_detect:",
+              type(FileNotFoundError).__name__)
+    except IOError:
+        print("Caught exception type on BallDetect.py event_detect:",
+              type(IOError).__name__)
+    except OSError:
+        print("Caught exception type on BallDetect.py event_detect:",
+              type(OSError).__name__)
+    except Exception:
+        print("Caught exception type on BallDetect.py event_detect:",
+              type(Exception).__name__)
+
     vid_cap.release()

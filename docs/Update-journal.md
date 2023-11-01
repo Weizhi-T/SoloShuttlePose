@@ -94,3 +94,7 @@
     Fix the some bugs about between json write and pandas value type int68.  
 
     Fix the traj2img file name bug. 
+
+2023/11/01:
+
+    Refinement of exception throwing in the ball_detect section. 

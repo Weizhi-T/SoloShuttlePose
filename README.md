@@ -2,7 +2,7 @@
 
 Lightweight singles badminton player posture, court detection tool. The framework has a small amount of code and is easy to modify. You can use this tool to get the shuttle player's pose data in competition easily! It means you'll be able to analyze player play more easily using AI methods.  
 
-# Functions implemented
+# Features
 
 1. court detect
 
@@ -15,10 +15,6 @@ Lightweight singles badminton player posture, court detection tool. The framewor
 5. event detect(hitting frame capture)  
 
 6. Automatically edits out videos from normal camera viewpoints(show rally)
-
-# Upcoming Functions
-
-please look forward to...
 
 # Notice
 

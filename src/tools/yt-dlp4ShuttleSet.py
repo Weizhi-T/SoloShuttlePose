@@ -26,9 +26,14 @@ else:
 for dir in os.listdir(directory):
     # Determine if the subdirectory is a directory, and if so, perform the following actions
     if os.path.isdir(os.path.join(directory, dir)):
-        # Get the name of the subdirectory and replace the underscores with spaces
+        # Get the name of the subdirectory and replace the something with spaces
         dir_name = os.path.basename(dir)
-        search_name = dir_name.replace("_", " ")
+        search_name = dir_name.replace(".", "_")
+        search_name = search_name.replace("-", "_")
+        os.rename(os.path.join(directory, dir),
+                  os.path.join(directory, search_name))
+
+        search_name = search_name.replace("_", " ")
         # Switch to a subdirectory and perform a search
         os.chdir(os.path.join(directory, dir))
         os.system(

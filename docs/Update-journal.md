@@ -98,3 +98,7 @@
 2023/11/01:
 
     Refinement of exception throwing in the ball_detect section. 
+
+2023/11/03:
+
+    Fix the bugs on yt-dlp4ShuttleSet.

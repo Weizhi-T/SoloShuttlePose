@@ -1,44 +1,37 @@
 import os
+import shutil
 
-# Specify the directory path
-directory_1 = "ShuttleSet/ShuttleSet"
-directory_2 = "ShuttleSet/ShuttleSet22"
-directory = "./video_bd"
+source_directory = "ShuttleSet/ShuttleSet22/match"
+target_directory = "ShuttleSet/ShuttleSet22/match_db"
 
-print("directory_1 = ShuttleSet/ShuttleSet",
-      "directory_2 = ShuttleSet/ShuttleSet22",
-      sep="\n")
-
-choice = int(input("Please input number to choose directory: "))
-
-if choice == 1:
-    directory = directory_1
-elif choice == 2:
-    directory == directory_2
+# 确保要删除的文件夹存在
+if os.path.exists(target_directory):
+    pass
 else:
-    print("Please input 1 or 2!")
-    exit(0)
+   shutil.copytree(source_directory, target_directory)
+   print(f"create {target_directory}")
+   
 
-# # Activate the relevant conda environment
-# os.system("D://Users//86153//anaconda3//Scripts//activate.bat SoloShuttlePose")
-
-# Iterates through all subdirectories of the specified directory
-for dir in os.listdir(directory):
-    # Determine if the subdirectory is a directory, and if so, perform the following actions
-    if os.path.isdir(os.path.join(directory, dir)):
-        # Get the name of the subdirectory and replace the something with spaces
+# 遍历目录下的子目录
+for dir in os.listdir(target_directory):
+    if os.path.isdir(os.path.join(target_directory, dir)):
         dir_name = os.path.basename(dir)
+        print(dir_name)
         search_name = dir_name.replace(".", "_")
         search_name = search_name.replace("-", "_")
-        os.rename(os.path.join(directory, dir),
-                  os.path.join(directory, search_name))
+        os.rename(os.path.join(target_directory, dir),
+                  os.path.join(target_directory, search_name))
 
-        search_name = search_name.replace("_", " ")
-        # Switch to a subdirectory and perform a search
-        os.chdir(os.path.join(directory, dir))
+# download video
+for dir in os.listdir(target_directory):
+    if os.path.isdir(os.path.join(target_directory, dir)):
+        dir_name = os.path.basename(dir)
+        search_name = dir.replace("_", " ")
+        # 切换到子目录并执行搜索
+        os.chdir(os.path.join(target_directory, dir))
         os.system(
             'yt-dlp --write-link --min-sleep-interval 10 --max-sleep-interval 120 "ytsearch:'
             + search_name + '" -f 137 --restrict-filenames -o "' + dir_name +
             '.mp4"')
-        # Switch back to parent directory
+        # 切换回父目录
         os.chdir("..")

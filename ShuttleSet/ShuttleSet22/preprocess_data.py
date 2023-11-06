@@ -16,7 +16,7 @@ class PreDataProcessor:
         self.match = pd.read_csv(f"{path}match.csv")
         # convert players to categorical values (anonymize)
         self.show_unique_players()
-        1/0
+        # 1/0
         self.match['winner'] = self.match['winner'].apply(lambda x: self.unique_players.index(x))
         self.match['loser'] = self.match['loser'].apply(lambda x: self.unique_players.index(x))
 
@@ -29,7 +29,7 @@ class PreDataProcessor:
         self.homography.to_csv(f"{path}match_metadata.csv", index=False)
         self.homography_matrix = pd.read_csv(f"{path}match_metadata.csv", converters={'homography_matrix':lambda x: np.array(ast.literal_eval(x))})
 
-        all_matches = self.read_metadata(directory=f"{path}set")
+        all_matches = self.read_metadata(directory=f"{path}")
         cleaned_matches = self.engineer_match(all_matches)
         cleaned_matches.to_csv(f"{path}shot_metadata.csv", index=False)
 
@@ -199,6 +199,7 @@ class PreDataProcessor:
         
         plot = sns.heatmap(player_matrix, annot=True, linewidths=0.5, cbar=False)
         plt.xticks(rotation=30, ha='right')
+        os.makedirs("../figures/",exist_ok=True)
         plot.get_figure().savefig("../figures/player_matrix.png", dpi=300, bbox_inches='tight')
         plot.clear()
 
@@ -277,7 +278,7 @@ class CoachAITrainTestSplit:
 
 
 if __name__ == "__main__":
-    path = "../data/"
+    path = "ShuttleSet/ShuttleSet22/set/"
     data_processor = PreDataProcessor(path=path)
     data_processor.compute_statistics()
 

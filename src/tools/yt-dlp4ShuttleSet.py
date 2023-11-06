@@ -11,12 +11,14 @@ else:
    shutil.copytree(source_directory, target_directory)
    print(f"create {target_directory}")
    
+# limit_num为30时表示遍历的前30个不下载，只下载以后的
+limit_num=0#30
+video_cnt=0
 
 # 遍历目录下的子目录
 for dir in os.listdir(target_directory):
     if os.path.isdir(os.path.join(target_directory, dir)):
         dir_name = os.path.basename(dir)
-        print(dir_name)
         search_name = dir_name.replace(".", "_")
         search_name = search_name.replace("-", "_")
         os.rename(os.path.join(target_directory, dir),
@@ -26,6 +28,10 @@ for dir in os.listdir(target_directory):
 for dir in os.listdir(target_directory):
     if os.path.isdir(os.path.join(target_directory, dir)):
         dir_name = os.path.basename(dir)
+        print(dir_name)
+        video_cnt+=1
+        if video_cnt<=limit_num:
+            continue
         search_name = dir.replace("_", " ")
         # 切换到子目录并执行搜索
         os.chdir(os.path.join(target_directory, dir))

@@ -3,16 +3,28 @@ You can download weights in https://drive.google.com/drive/folders/16mVjXrul3VaX
 
 add the weight folder to the "src/model"
 
-# Creating a Environment
+# Creating a Environment and activate it.
 
 ```
-conda create --name SoloShuttlePose python=3.9
+conda create --name a python=3.9
 ```
 
-# Install the required packages
+# Activate environment
 
 ```
-pip install 'docs/requirements.txt'
+conda activate SoloShuttlePose
+```
+
+# Install torch
+
+```
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117
+```
+
+# Install the other packages
+
+```
+pip install -r docs/requirements.txt
 ```
 
 # Download the youtube BWF video for ShuttleSet

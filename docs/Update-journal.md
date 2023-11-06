@@ -105,4 +105,6 @@
 
 2023/11/06:
 
-    Update dataset.
+    Fix the ShuttleSet22 "data_process.py" bug. 
+
+    Transform the original dataset to the match dataset, and update the "yt-dlp4ShuttleSet22.py" program.

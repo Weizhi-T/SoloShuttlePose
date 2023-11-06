@@ -6,7 +6,7 @@ add the weight folder to the "src/model"
 # Creating a Environment and activate it.
 
 ```
-conda create --name a python=3.9
+conda create --name SoloShuttlePose python=3.9
 ```
 
 # Activate environment

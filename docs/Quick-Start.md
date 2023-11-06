@@ -27,6 +27,12 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 pip install -r docs/requirements.txt
 ```
 
+# Install yt-dlp
+
+```
+python3 -m pip install -U yt-dlp
+```
+
 # Download the youtube BWF video for ShuttleSet
 
 ```

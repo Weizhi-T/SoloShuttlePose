@@ -18,7 +18,7 @@ Lightweight singles badminton player posture, court detection tool. The framewor
 
 # Notice
 
-[Quick Start](docs/Instruction.md).
+[Quick Start](docs/Quick-Start.md).
 
 [Update journal](documents/Update-journal.md).
 

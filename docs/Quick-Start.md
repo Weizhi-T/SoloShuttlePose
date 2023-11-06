@@ -3,7 +3,7 @@ You can download weights in https://drive.google.com/drive/folders/16mVjXrul3VaX
 
 add the weight folder to the "src/model"
 
-# Creating a Environment and activate it.
+# Creating a Environment.
 
 ```
 conda create --name SoloShuttlePose python=3.9

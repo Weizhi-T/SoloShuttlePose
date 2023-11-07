@@ -341,8 +341,8 @@ class CourtDetect(object):
     def __top_bottom(self, joint):
         a = joint[0][-1][1] + joint[0][-2][1]
         b = joint[1][-1][1] + joint[1][-2][1]
-        # the first player on the top of court
-        if a > b:
+        # the first player on the top of court, swap
+        if a >= b:
             joint[0], joint[1] = joint[1], joint[0]
         return joint
 

@@ -23,35 +23,58 @@ for dir in os.listdir(target_directory):
         dir_name = os.path.basename(dir)
         search_name = dir_name.replace(".", "_")
         search_name = search_name.replace("-", "_")
-        os.rename(os.path.join(target_directory, dir),
+        os.rename(os.path.join(target_directory, dir_name),
                   os.path.join(target_directory, search_name))
 
 # download video
 for dir in os.listdir(target_directory):
-    if os.path.isdir(os.path.join(target_directory, dir)):
+    target_path=os.path.join(target_directory, dir)
+    # print(os.path.isdir(os.path.join(target_directory, dir)))
+    if os.path.isdir(target_path):
         dir_name = os.path.basename(dir)
         print(dir_name)
         video_cnt+=1
         if video_cnt<=limit_num:
             continue
         search_name = dir.replace("_", " ")
-        # 切换目标目录
-        os.chdir(os.path.join(target_directory, dir))
 
-        ydl_opts = {
-            'format': '137',
-            'min_sleep_interval': 10,
-            'max_sleep_interval': 30,
-            'outtmpl': f'{dir_name}.mp4',
-            'postprocessors': [{
-                'key': 'FFmpegVideoConvertor',
-                'preferedformat': 'mp4'
-            }]
-        }
+        # 构建命令行
+        command = f'yt-dlp --write-link --min-sleep-interval 10 --max-sleep-interval 30 "ytsearch:{search_name}" -f 137 --restrict-filenames -o "{target_path}/{dir_name}.mp4"'
 
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([f'ytsearch:{search_name}'])
+        try:
+            os.system(command)
+        except KeyboardInterrupt:
+            print("Caught exception type on main.py ball_detect:",
+                    type(KeyboardInterrupt).__name__)
+            exit()
+        except SystemExit:
+            print("Caught exception type on main.py ball_detect:",
+                    type(SystemExit).__name__)
+        except ValueError:
+            print("Caught exception type on main.py ball_detect:",
+                    type(ValueError).__name__)
+        except ZeroDivisionError:
+            print("Caught exception type on main.py ball_detect:",
+                    type(ZeroDivisionError).__name__)
+        except TypeError:
+            print("Caught exception type on main.py ball_detect:",
+                    type(TypeError).__name__)
+        except IndexError:
+            print("Caught exception type on main.py ball_detect:",
+                    type(IndexError).__name__)
+        except FileNotFoundError:
+            print("Caught exception type on main.py ball_detect:",
+                    type(FileNotFoundError).__name__)
+        except IOError:
+            print("Caught exception type on main.py ball_detect:",
+                    type(IOError).__name__)
+        except OSError:
+            print("Caught exception type on main.py ball_detect:",
+                    type(OSError).__name__)
+        except Exception:
+            print("Caught exception type on main.py ball_detect:",
+                    type(Exception).__name__)
 
-        # 切换回父目录
-        os.chdir("..")
+
+
 

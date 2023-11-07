@@ -110,3 +110,9 @@
     Transform the original dataset to the match dataset, and update the "yt-dlp4ShuttleSet22.py" program.
 
     Fix intsall environment.
+
+2023/11/07:
+
+    Correct the player positin. 
+
+    Update "yt-dlp4ShuttleSet.py". 

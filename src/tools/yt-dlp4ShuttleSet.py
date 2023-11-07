@@ -1,5 +1,7 @@
 import os
 import shutil
+import yt_dlp
+
 
 source_directory = "ShuttleSet/ShuttleSet22/match"
 target_directory = "ShuttleSet/ShuttleSet22/match_db"
@@ -33,11 +35,23 @@ for dir in os.listdir(target_directory):
         if video_cnt<=limit_num:
             continue
         search_name = dir.replace("_", " ")
-        # 切换到子目录并执行搜索
+        # 切换目标目录
         os.chdir(os.path.join(target_directory, dir))
-        os.system(
-            'yt-dlp --write-link --min-sleep-interval 10 --max-sleep-interval 120 "ytsearch:'
-            + search_name + '" -f 137 --restrict-filenames -o "' + dir_name +
-            '.mp4"')
+
+        ydl_opts = {
+            'format': '137',
+            'min_sleep_interval': 10,
+            'max_sleep_interval': 30,
+            'outtmpl': f'{dir_name}.mp4',
+            'postprocessors': [{
+                'key': 'FFmpegVideoConvertor',
+                'preferedformat': 'mp4'
+            }]
+        }
+
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([f'ytsearch:{search_name}'])
+
         # 切换回父目录
         os.chdir("..")
+

@@ -49,6 +49,8 @@ class PoseDetect:
         edges = [(0, 1), (0, 2), (2, 4), (1, 3), (6, 8), (8, 10), (11, 12),
                  (5, 7), (7, 9), (5, 11), (11, 13), (13, 15), (6, 12),
                  (12, 14), (14, 16), (5, 6)]
+        
+        # top player is blue and bottom is red
         top_color_edge = (255, 0, 0)
         bot_color_edge = (0, 0, 255)
         top_color_joint = (115, 47, 14)

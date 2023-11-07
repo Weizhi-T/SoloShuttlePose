@@ -179,6 +179,8 @@ def event_detect(json_path, result_path):
     os.makedirs(event_path, exist_ok=True)
     os.makedirs(img_path, exist_ok=True)
 
+        
+
     for i in range(len(frames)):
         event_dict = {}
         if i in final_predict:

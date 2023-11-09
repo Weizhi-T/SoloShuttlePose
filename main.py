@@ -101,6 +101,12 @@ for root, dirs, files in os.walk(folder_path):
             normal_court_info = court_detect.normal_court_info
             normal_net_info = net_detect.normal_net_info
 
+            # correct net position
+            if normal_net_info is not None:
+                if normal_court_info is not None:
+                    normal_net_info[1][1],normal_court_info[2][1]=\
+                        normal_court_info[2][1],normal_court_info[3][1]
+
             court_dict = {
                 "first_rally_frame": first_frame,
                 "next_rally_frame": next_frame,

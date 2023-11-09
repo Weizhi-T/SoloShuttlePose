@@ -4,7 +4,7 @@ Lightweight singles badminton player posture, court detection tool. The framewor
 
 ![Top player](docs/Top_player.png)
 
-![Game](docs/Game.png)
+![Game](docs/All_info.png)
 
 # Features
 

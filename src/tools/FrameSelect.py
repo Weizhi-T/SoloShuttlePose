@@ -1,3 +1,4 @@
+import math
 import cv2
 from PIL import Image, ImageTk
 import os
@@ -60,22 +61,24 @@ def update_image():
     frame = frame.astype('uint8')
     h, w = new_height, new_width
 
-    # Resize an image to a specified size
-    frame_resized = cv2.resize(frame.copy(), (w, h))
-    # Converting OpenCV images to PIL images
-    frame_pil = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
-    frame_pil = Image.fromarray(frame_pil)
-    # Show unprocessed images in the left-hand tab
-    frame_tk1 = ImageTk.PhotoImage(frame_pil)
-    image_label1.configure(image=frame_tk1)
-    image_label1.image = frame_tk1
+    # # Resize an image to a specified size
+    # frame_resized = cv2.resize(frame.copy(), (w, h))
+    # # Converting OpenCV images to PIL images
+    # frame_pil = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
+    # frame_pil = Image.fromarray(frame_pil)
+    # # Show unprocessed images in the left-hand tab
+    # frame_tk1 = ImageTk.PhotoImage(frame_pil)
+    # image_label1.configure(image=frame_tk1)
+    # image_label1.image = frame_tk1
 
     # Display the processed image in the right-hand tab
     # use CourtDetect and PoseDetect to process frame
-    frame_copy = frame.copy()
 
+    frame_copy = frame.copy()
     court_info, have_court = court_detect.get_court_info(frame_copy)
     net_info, have_net = net_detect.get_net_info(frame_copy)
+    # if have_court and have_net:
+    #     net_info[1][1],net_info[2][1]=court_info[2][1],court_info[3][1]
 
     if have_court:
         original_outputs, human_joints = pose_detect.get_human_joints(frame)
@@ -92,8 +95,8 @@ def update_image():
     frame_processed_pil = Image.fromarray(frame_processed_pil)
     frame_tk2 = ImageTk.PhotoImage(frame_processed_pil)
 
-    image_label2.configure(image=frame_tk2)
-    image_label2.image = frame_tk2
+    image_label.configure(image=frame_tk2)
+    image_label.image = frame_tk2
 
     # Update Window Display
     window.update()
@@ -236,25 +239,40 @@ for root, dirs, files in os.walk(folder_path):
             # Create a window
             window = tk.Tk()
 
+            # 获取屏幕分辨率
+            screen_width = int(window.winfo_screenwidth()*0.85)
+            screen_height = int(window.winfo_screenheight()*0.85)
+
+            # 计算适合屏幕的大小
+            frame_ratio = frame_width / frame_height
+            screen_ratio = screen_width / screen_height
+
+            if frame_ratio >= screen_ratio:
+                # 如果帧的宽高比大于或等于屏幕宽高比，则根据屏幕宽度缩放帧
+                new_width = screen_width
+                new_height = math.floor(new_width / frame_ratio)
+            else:
+                # 否则根据屏幕高度缩放帧
+                new_height = screen_height
+                new_width = math.floor(new_height * frame_ratio)
+
             # screen_width = window.winfo_screenwidth()
             # screen_height = window.winfo_screenheight()
-            width_ratio = 0.35
-            height_ratio = 0.35
-            new_width = int(frame_width * width_ratio)
-            new_height = int(frame_height * height_ratio)
+            # width_ratio = 1
+            # height_ratio = 1
+            # new_width = int(frame_width * width_ratio)
+            # new_height = int(frame_height * height_ratio)
 
-            window.title(f"{video_name}")
+            window.title(f"Select valid frame from {video_name}")
             # window.geometry("800x600+200+100")
             window.state('zoomed')
-            # Create left side image labels
-            image_label1 = tk.Label(window)
-            image_label1.pack(side="left")
 
             # Create a right side image label
-            image_label2 = tk.Label(window)
-            image_label2.pack(side="right")
+            image_label = tk.Label(window)
+            image_label.pack()
 
             update_image()
+            
 
             # Binding Keyboard Event Handler Functions
             window.bind("<Key>", key_press)

@@ -116,3 +116,7 @@
     Correct the player positin. 
 
     Update "yt-dlp4ShuttleSet.py". 
+
+2023/11/09:
+
+    Update the "FrameSelect.py" and add some trick to correct the net bottom position.

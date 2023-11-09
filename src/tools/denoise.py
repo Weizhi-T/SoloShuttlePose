@@ -658,6 +658,8 @@ def smooth(json_path, save_path="res/ball/loca_info(denoise)"):
         visible = int(row["visible"])
         x = int(row["x"])
         y = int(row["y"])
+        if x==0 or y==0:
+            visible=0
         # do something with the values
         ball_dict = {
             frame: {

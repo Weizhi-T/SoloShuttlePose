@@ -2,9 +2,7 @@
 
 Lightweight singles badminton player posture, court detection tool. The framework has a small amount of code and is easy to modify. You can use this tool to get the shuttle player's pose data in competition easily! It means you'll be able to analyze player play more easily using AI methods.  
 
-![Top player](docs/Top_player.png)
-
-![Game](docs/All_info.png)
+![Dynamic diagram game](docs/imgs/Dynamic_diagram_game.gif)
 
 # Features
 
@@ -22,11 +20,11 @@ Lightweight singles badminton player posture, court detection tool. The framewor
 
 # Notice
 
-[Quick Start](docs/Quick-Start.md).
+Installation and instructions are [docs/Quick-Start.md](docs/Quick-Start.md).
 
-[Update journal](documents/Update-journal.md).
+If you want to know the updating record,please see [documents/Update-journal.md](documents/Update-journal.md).
 
-[Hyper-prameters-intro](docs/Hyper-prameters-intro.md)
+For more details about the flags and output format, please see [docs/run.md](docs/run.md).
 
 # References
 

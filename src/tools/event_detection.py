@@ -73,7 +73,7 @@ def event_detect(json_path, result_path):
             row.append(value)
         list1.append(row)
     front_zeros = np.zeros(len(list1))
-    for i in range(1, len(list1)):
+    for i in range(len(list1)):
         frames.append(int(float(list1[i][0])))
         realx.append(int(float(list1[i][2])))
         realy.append(int(float(list1[i][3])))
@@ -180,7 +180,6 @@ def event_detect(json_path, result_path):
     os.makedirs(img_path, exist_ok=True)
 
         
-
     for i in range(len(frames)):
         event_dict = {}
         if i in final_predict:

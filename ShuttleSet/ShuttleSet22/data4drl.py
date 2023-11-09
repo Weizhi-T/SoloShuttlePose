@@ -75,14 +75,16 @@ for dir in os.listdir(action4match):
                 bottom_kp17=[(bottom_kp15[0]+bottom_kp16[0])/2,(bottom_kp15[1]+bottom_kp16[1])/2]
                 row['bottom'].append(bottom_kp17)
 
-                ball2bottom=abs(ball[1]-top_kp17[1])#edist(ball[0],ball[1],top_kp17[0],top_kp17[1])
-                ball2top=abs(ball[1]-bottom_kp17[1])#edist(ball[0],ball[1],bottom_kp17[0],bottom_kp17[1])
+                ball2top=abs(ball[1]-top_kp17[1])#edist(ball[0],ball[1],top_kp17[0],top_kp17[1])
+                ball2bottom=abs(ball[1]-bottom_kp17[1])#edist(ball[0],ball[1],bottom_kp17[0],bottom_kp17[1])
                 # print(top_l,bottom_l)
                 # print(ball2top,ball2bottom)
                 # print(ball2top/bottom_l,ball2bottom/top_l)
                 
-
-                if ball2top<ball2bottom:
+                print(ball[1],court_dict['net_info'][0][1])
+                ball2net=(ball[1]-court_dict['net_info'][0][1])
+                print(ball2net)
+                if ball2net<0:
                     row['player']='top'
                 else:
                     row['player']='bottom'
